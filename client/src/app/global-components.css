@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Potta+One&display=swap");
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --font: "Poppins", Arial;
+
+  /* Colors Used */
+  --yellow: #fbb500;
+  --yellow-fade: #ffecba;
+  --green: #00932c;
+  --green-fade: #cce9d5;
+  --white: #ffffff;
+  --white-fade: #f4f4f4;
+  --gray: #7e7e7e;
+  --black: #000000;
+}
+
+.category-box {
+  border-radius: 1rem;
+  @apply min-h-28 min-w-24 mr-5 pt-3 px-3 bg-white;
+
+  .icons {
+    font-size: 2.5rem;
+    color: var(--green);
+  }
+  .name {
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .items {
+    font-size: 0.6rem;
+    font-weight: 700;
+  }
+}
+
+.category-box-active {
+  border-radius: 1rem;
+  background-color: var(--green-fade);
+  @apply min-h-32 min-w-32 mr-5 pt-3 px-3;
+
+  .icons {
+    font-size: 2.5rem;
+  }
+  .name {
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .items {
+    font-size: 0.6rem;
+    font-weight: 700;
+  }
+}
+
+.recipe-box {
+  .card:hover {
+    border: 2px solid var(--green);
+    scale: 0.95;
+  }
+  .recipe-details {
+    @apply px-3 pt-1;
+  }
+  .recipe-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  .recipe-desc {
+    font-size: 0.7rem;
+    height: 4.2rem;
+    margin-bottom: 0.5rem;
+
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+  }
+  .recipe-btn {
+    @apply h-9 mb-4;
+    border-radius: 0.5rem;
+    background-color: var(--yellow);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+}

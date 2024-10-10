@@ -1,0 +1,264 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Potta+One&display=swap");
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --font: "Poppins", Arial;
+
+  /* Colors Used */
+  --yellow: #fbb500;
+  --yellow-fade: #ffecba;
+  --green: #00932c;
+  --green-fade: #cce9d5;
+  --white: #ffffff;
+  --white-fade: #f4f4f4;
+  --gray: #7e7e7e;
+  --black: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* General Customize Class */
+.wrapper {
+  display: flex;
+  @apply flex-wrap;
+}
+
+/* ====== "/" ====== */
+.landing-page {
+  background-image: url("../images/utils/landing-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  .motto-box {
+    @apply items-center;
+    height: 92vh;
+  }
+  .cook-now-btn {
+    @apply mt-7 px-8 h-10 font-semibold;
+    border-radius: 3rem;
+    background-color: var(--green);
+    color: var(--white);
+    transition: transform 0.4s ease 0.1s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .right-side {
+    @apply basis-6/12;
+
+    background-image: url("../images/utils/landing-bg-recipe.png");
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 8rem;
+  }
+}
+
+/* ====== "Navbar" ====== */
+.recipes-layout-section {
+  .nav-side {
+    height: 100vh;
+    @apply basis-2/12;
+
+    .nav-link {
+      @apply w-9/12 h-12 mt-8 cursor-pointer text-center;
+      color: var(--black);
+      border-radius: 3rem;
+      font-weight: 600;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .nav-icons {
+        color: var(--green);
+      }
+    }
+    .nav-link-active {
+      @apply w-9/12 h-12 mt-8 cursor-pointer text-center;
+      background-color: var(--green);
+      color: var(--white);
+      border-radius: 3rem;
+
+      /* To center text vertical and horizontal */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .nav-icons {
+      @apply mr-1;
+      font-size: 1.4rem;
+    }
+    /* Customs icon thickness */
+    .home {
+      stroke-width: 14px;
+    }
+    .country {
+      stroke-width: 0.5px;
+    }
+  }
+
+  .content-side {
+    @apply basis-10/12 overflow-auto;
+    box-shadow: inset 10px 0 13px -10px rgba(155, 147, 147, 0.5);
+    background-color: var(--white-fade);
+    height: 100vh;
+  }
+}
+
+/* ====== "/recipes" ====== */
+.recipes-section {
+  @apply lg:mx-16 mx-8 overflow-auto;
+
+  .search-container {
+    @apply mt-4 w-5/12 items-center bg-white;
+    border-radius: 0.5rem;
+    color: var(--gray);
+
+    .icon {
+      @apply mr-2;
+      font-size: 1.5rem;
+    }
+    .search-input {
+      @apply h-11 w-10/12;
+      font-weight: 600;
+      &:focus {
+        outline: none !important;
+      }
+    }
+  }
+
+  .category-container {
+    display: flex;
+    @apply mt-6 w-full overflow-x-auto;
+  }
+
+  .recipe-container {
+    @apply grid mt-6 gap-3 overflow-auto;
+    @apply 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2;
+  }
+
+  .pagination-container {
+    @apply mt-5 h-10;
+
+    .pagination-box {
+      @apply w-full justify-center;
+      display: flex;
+    }
+    .pagination-box a {
+      @apply py-1 px-3 mx-1 cursor-pointer;
+      font-weight: 600;
+      border-radius: 5px;
+      border: 2px solid var(--green);
+
+      &:hover {
+        background-color: var(--green);
+        color: var(--white);
+      }
+    }
+    .pagination-active a {
+      background-color: var(--green);
+      color: var(--white);
+    }
+    .pagination-disable a {
+      border: none;
+      color: var(--gray);
+      background-color: #135a29;
+    }
+  }
+}
+
+/* ====== "/details/:recipe_id */
+.recipe-details-section {
+  @apply mt-8 bg-white;
+
+  .recipe-pic {
+    height: 55vh;
+    width: 55vh;
+    border-radius: 1.5rem;
+    box-shadow: 3px 1px 10px rgba(128, 128, 128, 0.712);
+  }
+  .recipe-name {
+    color: var(--green);
+    font-weight: 700;
+    font-size: 2.6rem;
+  }
+  .recipe-details {
+    @apply basis-4/12;
+    .value {
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .icon {
+      color: var(--gray);
+      font-size: 2.3rem;
+    }
+  }
+  .recipe-description {
+    @apply text-justify h-48 mt-6;
+    font-size: 0.8rem;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 10;
+  }
+  .tutorial-btn {
+    @apply px-7 h-8 bg-black text-white rounded-2xl font-semibold;
+    font-size: 0.8rem;
+    box-shadow: 5px 3px 10px gray;
+    transition: transform 0.4s ease 0.1s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .ingredients-box {
+    display: flex;
+    @apply mt-3 justify-center;
+
+    .ingre-card {
+      @apply basis-3/12;
+
+      .center-items {
+        display: flex;
+        justify-content: center;
+      }
+
+      .ingre-pic {
+        height: 9rem;
+        width: 9rem;
+        border-radius: 1.5rem;
+        box-shadow: 3px 1px 6px rgba(128, 128, 128, 0.349);
+      }
+      .ingre-name{
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+    }
+  }
+}
