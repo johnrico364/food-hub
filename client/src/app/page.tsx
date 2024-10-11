@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className="landing-page">
       <div className="wrapper">
-        <div className="basis-6/12">
+        <div className="left-side">
           <div className="pt-8 pl-8">
             <Image src={Logo} height={25} alt="logo" />
           </div>

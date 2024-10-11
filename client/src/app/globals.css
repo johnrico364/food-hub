@@ -50,6 +50,9 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 
+  .left-side{
+    @apply basis-6/12;
+  }
   .motto-box {
     @apply items-center;
     height: 92vh;
