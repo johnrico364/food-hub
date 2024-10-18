@@ -42,14 +42,14 @@ export default function Recipes() {
 
   return (
     <div className="recipes-section">
-      <label className="wrapper search-container">
+      <div className="wrapper search-container">
         <IoSearch className="icon" />
         <input
           className="search-input"
           type="text"
           placeholder="Search Recipe here..."
         />
-      </label>
+      </div>
 
       <div className="category-container ">
         <CategoryBox icon={AiOutlineAppstoreAdd} name={"All"} items={1309} />

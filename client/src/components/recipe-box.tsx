@@ -11,8 +11,8 @@ type Props = {
 export function RecipeBox(data: Props) {
   const router = useRouter();
   return (
-    <div className="recipe-box">
-      <div className="card bg-base-100 w-56">
+    <div className="recipe-box w-[14rem] h-[19.8rem]">
+      <div className="card bg-base-100">
         <figure className="px-3 mt-2 h-[150px] w-[225px]">
           <Image
             className="rounded-xl object-cover"

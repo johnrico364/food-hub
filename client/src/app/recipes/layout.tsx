@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
-
 // icons
 import { PiHouseLight } from "react-icons/pi";
 import { BiWorld } from "react-icons/bi";
+import { usePathname } from "next/navigation";
 
 type Props = {
   children: React.ReactNode;
@@ -16,6 +16,7 @@ type Props = {
 const country = ["Philippines", "USA"];
 
 export default function RecipesLayout({ children }: Props) {
+  const pathname = usePathname();
   const [showCountries, set_showCountries] = useState(false);
 
   return (
@@ -23,11 +24,20 @@ export default function RecipesLayout({ children }: Props) {
       <div className="wrapper">
         <div className="nav-side">
           <div className="wrapper justify-center mt-10">
-            <Image src={require('@/images/utils/logo.png')} height={27} alt="logo" />
+            <Image
+              src={require("@/images/utils/logo.png")}
+              height={27}
+              alt="logo"
+            />
           </div>
 
           <div className="wrapper justify-center mt-12">
-            <Link href={"/recipes"} className="nav-link-active">
+            <Link
+              href={"/recipes"}
+              className={
+                pathname === '/recipes' ? "nav-link-active" : "nav-link"
+              }
+            >
               <span className="pb-1">
                 <PiHouseLight className="nav-icons home" />
               </span>
@@ -35,7 +45,9 @@ export default function RecipesLayout({ children }: Props) {
             </Link>
 
             <div
-              className="nav-link"
+              className={
+                pathname.startsWith('/recipes/country') ? "nav-link-active" : "nav-link"
+              }
               onClick={() => set_showCountries(!showCountries)}
             >
               <span>

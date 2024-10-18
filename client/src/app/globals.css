@@ -50,7 +50,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 
-  .left-side{
+  .left-side {
     @apply basis-6/12;
   }
   .motto-box {
@@ -134,7 +134,7 @@ body {
 
 /* ====== "/recipes" ====== */
 .recipes-section {
-  @apply lg:mx-16 mx-8 overflow-auto;
+  @apply lg:mx-[3rem] mx-8 overflow-auto;
 
   .search-container {
     @apply mt-4 w-5/12 items-center bg-white;
@@ -168,7 +168,7 @@ body {
     @apply mt-5 h-10;
 
     .pagination-box {
-      @apply w-full justify-center;
+      @apply w-10/12 justify-center;
       display: flex;
     }
     .pagination-box a {
@@ -242,10 +242,10 @@ body {
 
   .ingredients-box {
     display: flex;
-    @apply mt-3 justify-center;
+    @apply mt-3 gap-2 justify-center items-center;
 
     .ingre-card {
-      @apply basis-3/12;
+      @apply basis-4/12;
 
       .center-items {
         display: flex;
@@ -253,15 +253,66 @@ body {
       }
 
       .ingre-pic {
-        height: 9rem;
-        width: 9rem;
+        height: 8.5rem;
+        width: 8.5rem;
         border-radius: 1.5rem;
         box-shadow: 3px 1px 6px rgba(128, 128, 128, 0.349);
       }
-      .ingre-name{
+      .ingre-name {
         font-size: 0.9rem;
         font-weight: 700;
       }
+    }
+
+    .swipe-btn {
+      @apply h-[2rem] w-[2rem] text-[1.3rem] rounded-[.3rem] ;
+      font-weight: 600;
+      background-color: var(--green);
+      color: var(--white);
+    }
+  }
+}
+
+/* ====== "/recipes/country/:country_name */
+.recipe-country-section{
+  @apply lg:mx-[3rem] mx-8;
+
+  .category-container {
+    display: flex;
+    @apply mt-[3rem] w-full overflow-x-auto;
+  }
+
+  .recipe-container {
+    @apply grid mt-6 gap-3 overflow-auto;
+    @apply 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2;
+  }
+
+  .pagination-container {
+    @apply mt-5 h-10;
+
+    .pagination-box {
+      @apply w-10/12 justify-center;
+      display: flex;
+    }
+    .pagination-box a {
+      @apply py-1 px-3 mx-1 cursor-pointer;
+      font-weight: 600;
+      border-radius: 5px;
+      border: 2px solid var(--green);
+
+      &:hover {
+        background-color: var(--green);
+        color: var(--white);
+      }
+    }
+    .pagination-active a {
+      background-color: var(--green);
+      color: var(--white);
+    }
+    .pagination-disable a {
+      border: none;
+      color: var(--gray);
+      background-color: #135a29;
     }
   }
 }

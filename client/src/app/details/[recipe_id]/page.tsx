@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 "use client";
 import Image from "next/image";
-
+import { useState } from "react";
 
 // Icons
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
@@ -14,10 +14,26 @@ type Props = {
   };
 };
 
-const data = ["Egg", "Pork", "Soy Sauce", "Vinegar", "Black Pepper"];
+const ingredients = ["Egg", "Pork", "Soy Sauce", "Vinegar", "Black Pepper"];
 
 export default function RecipeDetails({ params }: Props) {
-  console.log(params.recipe_id);
+  const [pageNumber, set_pageNumber] = useState(0);
+  const pageVisited = pageNumber * 3;
+
+  const displayIngredients = ingredients.slice(pageVisited, pageVisited + 3);
+
+  console.log(displayIngredients.length);
+
+  const swipeIngredientsFn = (action: string) => {
+    const isNext = displayIngredients.length === 3;
+    const isBack = pageNumber !== 0;
+    if (action === "next" && isNext) {
+      set_pageNumber(pageNumber + 1)
+    }
+    if (action === "back" && isBack) {
+      set_pageNumber(pageNumber - 1)
+    }
+  };
 
   return (
     <div className="recipe-details-section">
@@ -100,29 +116,41 @@ export default function RecipeDetails({ params }: Props) {
           </div>
 
           <div className="wrapper mt-11">
-            <div className="basis-6/12">
+            <div className="lg:basis-6/12 md:basis-7/12">
               <div className="font-bold">Ingredients</div>
 
-              <div className="ingredients-box border">
-                {data.map((ingredient, i) => {
+              <div className="ingredients-box">
+                <button
+                  className="swipe-btn"
+                  onClick={() => swipeIngredientsFn("back")}
+                >
+                  {"<"}
+                </button>
+                {displayIngredients.map((data, i) => {
                   return (
                     <div className="ingre-card" key={i}>
                       <div className="center-items">
                         <Image
                           className="ingre-pic"
-                          src={require(`@/images/ingredients/${ingredient}.jpg`)}
+                          src={require(`@/images/ingredients/${data}.jpg`)}
                           alt="recipe"
                         />
                       </div>
                       <div className="center-items">
-                        <div className="ingre-name">{ingredient}</div>
+                        <div className="ingre-name">{data}</div>
                       </div>
                     </div>
                   );
                 })}
+                <button
+                  className="swipe-btn"
+                  onClick={() => swipeIngredientsFn("next")}
+                >
+                  {">"}
+                </button>
               </div>
             </div>
-            <div className="basis-6/12">
+            <div className="lg:basis-6/12 md:basis-5/12">
               <div className="wrapper justify-end">
                 <button className="tutorial-btn">Show Tutorial</button>
               </div>

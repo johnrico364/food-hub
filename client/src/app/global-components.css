@@ -21,7 +21,7 @@
 
 .category-box {
   border-radius: 1rem;
-  @apply min-h-28 min-w-24 mr-5 pt-3 px-3 bg-white;
+  @apply min-h-28 min-w-24 mr-5 pt-3 px-3 bg-white cursor-pointer;
 
   .icons {
     font-size: 2.5rem;
@@ -40,7 +40,7 @@
 .category-box-active {
   border-radius: 1rem;
   background-color: var(--green-fade);
-  @apply min-h-32 min-w-32 mr-5 pt-3 px-3;
+  @apply min-h-28 min-w-24 mr-5 pt-3 px-3 cursor-pointer;
 
   .icons {
     font-size: 2.5rem;
@@ -56,15 +56,15 @@
 }
 
 .recipe-box {
-  .card:hover {
+  border-radius: 18px;
+  &:hover {
     border: 2px solid var(--green);
-    scale: 0.95;
   }
   .recipe-details {
     @apply px-3 pt-1;
   }
   .recipe-name {
-    font-size: 0.9rem;
+    font-size: 0.9  rem;
     font-weight: 700;
 
     display: -webkit-box;
