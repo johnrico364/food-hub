@@ -10,7 +10,6 @@ import { CiBowlNoodles } from "react-icons/ci";
 import { IoRestaurantOutline, IoSearch } from "react-icons/io5";
 import { LiaMugHotSolid } from "react-icons/lia";
 import { LuIceCream2, LuSoup } from "react-icons/lu";
-import { TbBurger } from "react-icons/tb";
 
 // Fakedata
 import Recipes_Data from "../../recipes.json";
@@ -53,17 +52,16 @@ export default function Recipes() {
 
       <div className="category-container ">
         <CategoryBox icon={AiOutlineAppstoreAdd} name={"All"} items={1309} />
-        <CategoryBox icon={LiaMugHotSolid} name={"Breakfast"} items={125} />
-        <CategoryBox icon={LuSoup} name={"Soups"} items={189} />
-        <CategoryBox icon={CiBowlNoodles} name={"Pasta"} items={73} />
         <CategoryBox
           icon={IoRestaurantOutline}
           name={"Main Course"}
           items={68}
         />
-        <CategoryBox icon={TbBurger} name={"Burgers"} items={102} />
+        <CategoryBox icon={LiaMugHotSolid} name={"Breakfast"} items={125} />
         <CategoryBox icon={LuSoup} name={"Soups"} items={189} />
+        <CategoryBox icon={CiBowlNoodles} name={"Pasta"} items={73} />
         <CategoryBox icon={LuIceCream2} name={"Desserts"} items={189} />
+        {/* Beverages, Salads, Baked, Snacks, Appetizers, Seafood */}
       </div>
 
       <div className="recipe-container">

@@ -1,0 +1,19 @@
+recipe_tbl
+  id -> unique
+  name -> varchar
+  description -> longtext
+  category -> array
+  recipes -> array
+  country -> varchar
+  prep_time -> int
+  yt_link -> varchar
+
+  created_at -> timestamps
+  updated_at -> timestamps
+
+
+api to make;
+  /recipes/get-by-category/:type (:type = [all, main course, breakfast, soups, pasta, desserts, .etc])
+  /recipes/get-by-country/:country-name
+  /recipe-details/:recipe-id
+  /search
