@@ -12,6 +12,14 @@ class RegisterRecipes
   {
     $this->recipesRepository = $recipesRepository;
   }
+  public function create(int $id, string $name, string $category)
+  {
+    $data = new Recipes($id, $name, $category);
+    $this->recipesRepository->create($data);
+  }
+  public function update()
+  {
+  }
   public function findByCategory(string $category)
   {
     return $this->recipesRepository->findByCategory($category);
