@@ -2,7 +2,8 @@
 
 namespace App\Domain\Recipes;
 
-interface RecipesRepository {
+interface RecipesRepository
+{
   public function create(Recipes $recipes): void;
   public function update(Recipes $recipes): void;
   public function findByCategory(string $category): array;

@@ -52,16 +52,15 @@ export default function Country({ params }: Props) {
     <div className="recipe-country-section">
       <div className="category-container ">
         <CategoryBox icon={AiOutlineAppstoreAdd} name={"All"} items={1309} />
-        <CategoryBox icon={LiaMugHotSolid} name={"Breakfast"} items={125} />
-        <CategoryBox icon={LuSoup} name={"Soups"} items={189} />
-        <CategoryBox icon={CiBowlNoodles} name={"Pasta"} items={73} />
         <CategoryBox
           icon={IoRestaurantOutline}
           name={"Main Course"}
           items={68}
         />
-        <CategoryBox icon={TbBurger} name={"Burgers"} items={102} />
+        <CategoryBox icon={LiaMugHotSolid} name={"Breakfast"} items={125} />
         <CategoryBox icon={LuSoup} name={"Soups"} items={189} />
+        <CategoryBox icon={CiBowlNoodles} name={"Pasta"} items={73} />
+        <CategoryBox icon={TbBurger} name={"Burgers"} items={102} />
         <CategoryBox icon={LuIceCream2} name={"Desserts"} items={189} />
       </div>
 
