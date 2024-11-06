@@ -4,6 +4,7 @@ import Image from "next/image";
 import Picture from "../images/utils/landing-bg-recipe.png";
 
 type Props = {
+  id: number;
   name: string;
   description: string;
 };
@@ -29,7 +30,7 @@ export function RecipeBox(data: Props) {
           <div className="text-center">
             <button
               className="recipe-btn w-full"
-              onClick={() => router.push("/details/adobo")}
+              onClick={() => router.push(`/details/${data?.id}`)}
             >
               Show Recipe
             </button>

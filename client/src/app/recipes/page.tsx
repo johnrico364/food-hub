@@ -1,29 +1,89 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 // Components
 import { CategoryBox } from "@/components/category-box";
 import { RecipeBox } from "@/components/recipe-box";
+// Hooks
+import { useGetRecipes } from "@/hooks/useGetRecipes";
 // Icons
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { CiBowlNoodles } from "react-icons/ci";
-import { IoRestaurantOutline, IoSearch } from "react-icons/io5";
+import { IoFishOutline, IoRestaurantOutline, IoSearch } from "react-icons/io5";
 import { LiaMugHotSolid } from "react-icons/lia";
-import { LuIceCream2, LuSoup } from "react-icons/lu";
+import { LuIceCream2, LuPopcorn, LuSalad, LuSoup } from "react-icons/lu";
+import { MdOutlineBakeryDining } from "react-icons/md";
+import { BiBowlRice } from "react-icons/bi";
 
-// Fakedata
-import Recipes_Data from "../../recipes.json";
-
-type Props = {
-  Name: string;
-  Instructions: string;
-  Month: string;
+type RecipeProps = {
+  id: number;
+  name: string;
+  description: string;
 };
 
-export default function Recipes() {
-  const recipes_data: Props[] = Recipes_Data;
+const categories = [
+  {
+    icon: AiOutlineAppstoreAdd,
+    name: "All",
+    items: 1309,
+  },
+  {
+    icon: IoRestaurantOutline,
+    name: "Main course",
+    items: 68,
+  },
+  {
+    icon: LiaMugHotSolid,
+    name: "Breakfast",
+    items: 125,
+  },
+  {
+    icon: LuSoup,
+    name: "Soups",
+    items: 189,
+  },
+  {
+    icon: CiBowlNoodles,
+    name: "Pasta",
+    items: 73,
+  },
+  {
+    icon: LuIceCream2,
+    name: "Desserts",
+    items: 189,
+  },
+  {
+    icon: LuSalad,
+    name: "Salad",
+    items: 51,
+  },
+  {
+    icon: MdOutlineBakeryDining,
+    name: "Baked",
+    items: 11,
+  },
+  {
+    icon: LuPopcorn,
+    name: "Snacks",
+    items: 31,
+  },
+  {
+    icon: BiBowlRice,
+    name: "Appetizers",
+    items: 24,
+  },
+  {
+    icon: IoFishOutline,
+    name: "Seafood",
+    items: 34,
+  },
+];
 
-  const [recipes] = useState(recipes_data.slice(0, 203));
+export default function Recipes() {
+  const { getRecipesByCategory } = useGetRecipes();
+
+  const [recipes, set_recipes] = useState([]);
+  const [categoryType, set_categoryType] = useState("All");
   const [pageNumber, set_pageNumber] = useState(0);
 
   const recipesPerPage = 10;
@@ -39,6 +99,14 @@ export default function Recipes() {
     set_pageNumber(selected);
   };
 
+  const effectFn = async () => {
+    const recipesData = await getRecipesByCategory(categoryType);
+    set_recipes(recipesData);
+  };
+
+  useEffect(() => {
+    effectFn();
+  }, [categoryType]);
   return (
     <div className="recipes-section">
       <div className="wrapper search-container">
@@ -51,24 +119,25 @@ export default function Recipes() {
       </div>
 
       <div className="category-container ">
-        <CategoryBox icon={AiOutlineAppstoreAdd} name={"All"} items={1309} />
-        <CategoryBox
-          icon={IoRestaurantOutline}
-          name={"Main Course"}
-          items={68}
-        />
-        <CategoryBox icon={LiaMugHotSolid} name={"Breakfast"} items={125} />
-        <CategoryBox icon={LuSoup} name={"Soups"} items={189} />
-        <CategoryBox icon={CiBowlNoodles} name={"Pasta"} items={73} />
-        <CategoryBox icon={LuIceCream2} name={"Desserts"} items={189} />
-        {/* Beverages, Salads, Baked, Snacks, Appetizers, Seafood */}
+        {categories?.map((category, i) => {
+          return (
+            <div key={i} onClick={() => set_categoryType(category.name)}>
+              <CategoryBox
+                icon={category.icon}
+                name={category.name}
+                items={category.items}
+                isActive={category.name === categoryType}
+              />
+            </div>
+          );
+        })}
       </div>
 
       <div className="recipe-container">
-        {displayRecipes.map((r, i) => {
+        {displayRecipes.map((r: RecipeProps, i) => {
           return (
             <div key={i}>
-              <RecipeBox name={r.Name} description={r.Instructions} />
+              <RecipeBox id={r.id} name={r.name} description={r.description} />
             </div>
           );
         })}

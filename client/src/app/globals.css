@@ -156,16 +156,16 @@ body {
 
   .category-container {
     display: flex;
-    @apply mt-6 w-full overflow-x-auto;
+    @apply mt-6 pb-3 w-full overflow-x-auto;
   }
 
   .recipe-container {
-    @apply grid mt-6 gap-3 overflow-auto;
+    @apply grid mt-4 gap-3 overflow-auto;
     @apply 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2;
   }
 
   .pagination-container {
-    @apply mt-5 h-10;
+    @apply mt-4 h-8;
 
     .pagination-box {
       @apply w-10/12 justify-center;

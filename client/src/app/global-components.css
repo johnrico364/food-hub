@@ -21,7 +21,7 @@
 
 .category-box {
   border-radius: 1rem;
-  @apply min-h-28 min-w-24 mr-5 pt-3 px-3 bg-white cursor-pointer;
+  @apply min-h-[7rem] min-w-[6.5rem] mr-4 pt-3 px-2 bg-white cursor-pointer;
 
   .icons {
     font-size: 2.5rem;
@@ -40,7 +40,7 @@
 .category-box-active {
   border-radius: 1rem;
   background-color: var(--green-fade);
-  @apply min-h-28 min-w-24 mr-5 pt-3 px-3 cursor-pointer;
+  @apply min-h-[7rem] min-w-[6.5rem] mr-4 pt-3 px-2 cursor-pointer;
 
   .icons {
     font-size: 2.5rem;
