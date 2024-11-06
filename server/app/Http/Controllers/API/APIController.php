@@ -18,7 +18,35 @@ class APIController extends Controller
 
   public function index()
   {
-    return response()->json("Hello world...!");
+    return response()->json('Hello people...!');
+  }
+  public function getRecipeType($category)
+  {
+    $recipes = $this->registerRecipes->findByCategory($category);
+    $recipesArray = array_map(fn($recep) => $recep->toArray(), $recipes);
+
+    return response()->json(['data' => $recipesArray], 200);
+  }
+  public function getRecipeCountry($country)
+  {
+    $recipes = $this->registerRecipes->findByCountry($country);
+    $recipesArray = array_map(fn($recep) => $recep->toArray(), $recipes);
+
+    if (count($recipesArray) === 0) {
+      return response()->json(['message' => 'No recipes found for the specified country'], 404);
+    }
+
+    return response()->json(['data' => $recipesArray], 200);
+  }
+
+  public function getRecipeDetails($id)
+  {
+    $recipe = $this->registerRecipes->findById($id);
+    if ($recipe === null) {
+      return response()->json(['message' => 'Tool not found'], 404);
+    }
+
+    return response()->json(['data' => $recipe->toArray()], 200);
   }
 }
 

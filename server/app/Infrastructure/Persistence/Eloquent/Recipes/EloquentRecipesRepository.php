@@ -32,13 +32,33 @@ class EloquentRecipesRepository implements RecipesRepository
   public function findByCategory(string $category): array
   {
     $matchRecipes = null;
-    if ($category == 'all') {
+    if ($category == 'All') {
       $matchRecipes = RecipesModel::all();
     } else {
-      $matchRecipes = RecipesModel::where('category', 'LIKE', "%{$category}%");
+      $matchRecipes = RecipesModel::where('category', 'LIKE', "%{$category}%")->get();
     }
 
     return $matchRecipes->map(function ($recipe) {
+      return new Recipes(
+        $recipe->id,
+        $recipe->name,
+        $recipe->description,
+        $recipe->category,
+        $recipe->ingredients,
+        $recipe->country,
+        $recipe->prep_time,
+        $recipe->yt_link,
+        $recipe->created_at,
+        $recipe->updated_at
+      );
+    })->toArray();
+  }
+
+  public function findByCountry(string $country): array
+  {
+    $recipes = RecipesModel::where('country', $country)->get();
+
+    return $recipes->map(function ($recipe) {
       return new Recipes(
         $recipe->id,
         $recipe->name,

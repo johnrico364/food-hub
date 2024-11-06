@@ -14,7 +14,7 @@ recipe_tbl
 
 
 api to make;
-  /recipes/get-by-category/:type (:type = [all, main course, breakfast, soups, pasta, desserts, .etc])
-  /recipes/get-by-country/:country-name
+  /recipes/category/:type (:type = [all, main course, breakfast, soups, pasta, desserts, .etc])
+  /recipes/country/:country-name
   /recipe-details/:recipe-id
   /search
