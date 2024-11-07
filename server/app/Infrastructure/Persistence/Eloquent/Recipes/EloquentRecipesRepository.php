@@ -48,6 +48,7 @@ class EloquentRecipesRepository implements RecipesRepository
         $recipe->country,
         $recipe->prep_time,
         $recipe->yt_link,
+        $recipe->image,
         $recipe->created_at,
         $recipe->updated_at
       );
@@ -68,6 +69,7 @@ class EloquentRecipesRepository implements RecipesRepository
         $recipe->country,
         $recipe->prep_time,
         $recipe->yt_link,
+        $recipe->image,
         $recipe->created_at,
         $recipe->updated_at
       );
@@ -91,6 +93,7 @@ class EloquentRecipesRepository implements RecipesRepository
       $recipe->country,
       $recipe->prep_time,
       $recipe->yt_link,
+      $recipe->image,
       $recipe->created_at,
       $recipe->updated_at
     );
@@ -123,6 +126,7 @@ class EloquentRecipesRepository implements RecipesRepository
         $exactMatch->country,
         $exactMatch->prep_time,
         $exactMatch->yt_link,
+        $exactMatch->image,
         $exactMatch->created_at,
         $exactMatch->updated_at
       ) : null,
@@ -136,6 +140,7 @@ class EloquentRecipesRepository implements RecipesRepository
           $recipes->country,
           $recipes->prep_time,
           $recipes->yt_link,
+          $recipes->image,
           $recipes->created_at,
           $recipes->updated_at
         );
