@@ -26,7 +26,7 @@ export const useGetRecipes = () => {
       );
       const recipes = data?.data?.data;
       const filteredReturn = recipes?.filter((data: Props) => {
-        return data.country === country;
+        return data.country === country.replace("%20", " ");
       });
 
       return filteredReturn;
