@@ -35,5 +35,14 @@ export const useGetRecipes = () => {
     }
   };
 
-  return { getRecipesByCategory, getRecipeDetails };
+  const getRecipesCount = async () => {
+    try {
+      const data = await axios.get("http://127.0.0.1:8000/api/category_count");
+      return data?.data?.category_count;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { getRecipesByCategory, getRecipeDetails, getRecipesCount };
 };

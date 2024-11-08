@@ -25,62 +25,62 @@ const categories = [
   {
     icon: AiOutlineAppstoreAdd,
     name: "All",
-    items: 1309,
+    items: 0,
   },
   {
     icon: IoRestaurantOutline,
     name: "Main course",
-    items: 68,
+    items: 0,
   },
   {
     icon: LiaMugHotSolid,
     name: "Breakfast",
-    items: 125,
+    items: 0,
   },
   {
     icon: LuSoup,
     name: "Soups",
-    items: 189,
+    items: 0,
   },
   {
     icon: CiBowlNoodles,
     name: "Pasta",
-    items: 73,
+    items: 0,
   },
   {
     icon: LuIceCream2,
     name: "Desserts",
-    items: 189,
+    items: 0,
   },
   {
     icon: LuSalad,
     name: "Salad",
-    items: 51,
+    items: 0,
   },
   {
     icon: MdOutlineBakeryDining,
     name: "Baked",
-    items: 11,
+    items: 0,
   },
   {
     icon: LuPopcorn,
     name: "Snacks",
-    items: 31,
+    items: 0,
   },
   {
     icon: BiBowlRice,
     name: "Appetizers",
-    items: 24,
+    items: 0,
   },
   {
     icon: IoFishOutline,
     name: "Seafood",
-    items: 34,
+    items: 0,
   },
 ];
 
 export default function Recipes() {
-  const { getRecipesByCategory } = useGetRecipes();
+  const { getRecipesByCategory, getRecipesCount } = useGetRecipes();
 
   const [recipes, set_recipes] = useState([]);
   const [categoryType, set_categoryType] = useState("All");
@@ -101,7 +101,14 @@ export default function Recipes() {
 
   const effectFn = async () => {
     const recipesData = await getRecipesByCategory(categoryType);
+    const categoryCount = await getRecipesCount();
     set_recipes(recipesData);
+
+    let categoryIndex = 0;
+    for (const key in categoryCount) {
+      categories[categoryIndex].items = categoryCount[key];
+      categoryIndex++;
+    }
   };
 
   useEffect(() => {
