@@ -27,17 +27,6 @@ class APIController extends Controller
 
     return response()->json(['data' => $recipesArray], 200);
   }
-  public function getRecipeCountry($country)
-  {
-    $recipes = $this->registerRecipes->findByCountry($country);
-    $recipesArray = array_map(fn($recep) => $recep->toArray(), $recipes);
-
-    if (count($recipesArray) === 0) {
-      return response()->json(['message' => 'No recipes found for the specified country'], 404);
-    }
-
-    return response()->json(['data' => $recipesArray], 200);
-  }
   public function getRecipeDetails($id)
   {
     $recipe = $this->registerRecipes->findById($id);

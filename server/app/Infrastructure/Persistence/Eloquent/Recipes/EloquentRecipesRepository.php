@@ -55,26 +55,6 @@ class EloquentRecipesRepository implements RecipesRepository
     })->toArray();
   }
 
-  public function findByCountry(string $country): array
-  {
-    $recipes = RecipesModel::where('country', $country)->get();
-
-    return $recipes->map(function ($recipe) {
-      return new Recipes(
-        $recipe->id,
-        $recipe->name,
-        $recipe->description,
-        $recipe->category,
-        $recipe->ingredients,
-        $recipe->country,
-        $recipe->prep_time,
-        $recipe->yt_link,
-        $recipe->image,
-        $recipe->created_at,
-        $recipe->updated_at
-      );
-    })->toArray();
-  }
 
   // Find Recipes by id.
   public function findById(int $id): ?Recipes

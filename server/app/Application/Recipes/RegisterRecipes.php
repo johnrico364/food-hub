@@ -24,10 +24,6 @@ class RegisterRecipes
   {
     return $this->recipesRepository->findByCategory($category);
   }
-  public function findByCountry(string $country)
-  {
-    return $this->recipesRepository->findByCountry($country);
-  }
   public function findById(int $id)
   {
     return $this->recipesRepository->findById($id);
