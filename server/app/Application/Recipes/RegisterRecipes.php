@@ -43,4 +43,12 @@ class RegisterRecipes
       }, $result['related_match'])
     ];
   }
+  public function findAllCategoryCount()
+  {
+    return $this->recipesRepository->getAllCategoryCounts();
+  }
+  public function findAllCountries()
+  {
+    return $this->recipesRepository->getAllRecipeCountry();
+  }
 }

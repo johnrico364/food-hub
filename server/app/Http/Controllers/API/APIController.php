@@ -38,7 +38,6 @@ class APIController extends Controller
 
     return response()->json(['data' => $recipesArray], 200);
   }
-
   public function getRecipeDetails($id)
   {
     $recipe = $this->registerRecipes->findById($id);
@@ -47,6 +46,18 @@ class APIController extends Controller
     }
 
     return response()->json(['data' => $recipe->toArray()], 200);
+  }
+  public function getRecipeCategoryCount()
+  {
+    $recipeCount = $this->registerRecipes->findAllCategoryCount();
+
+    return response()->json(['category_count' => $recipeCount], 200);
+  }
+  public function getRecipeCountries()
+  {
+    $recipeCountries = $this->registerRecipes->findAllCountries();
+
+    return response()->json(['data' => $recipeCountries]);
   }
 }
 
