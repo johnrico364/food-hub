@@ -181,7 +181,7 @@ class RecipesSeeder extends Seeder
       [
         'name' => 'Pinakbet',
         'description' => 'Pinakbet is a traditional vegetable stew from the Ilocos region, made with a mix of fresh vegetables like bitter melon, squash, eggplant, and okra. It’s cooked with shrimp paste, which enhances its savory, umami flavor. Pinakbet is typically served as a side dish and is loved for its health benefits and hearty taste.',
-        'category' => json_encode(['Main course', 'Side dishes']),
+        'category' => json_encode(['Main course', 'Appetizers']),
         'ingredients' => json_encode(['bitter melon', 'pork belly', 'squash', 'eggplant', 'okra', 'tomatoes', 'onion', 'garlic', 'shrimp paste', 'salt']),
         'country' => 'Philippines',
         'prep_time' => 40,
@@ -289,7 +289,7 @@ class RecipesSeeder extends Seeder
       [
         'name' => 'Kimchi',
         'description' => 'Kimchi is a traditional Korean side dish made from fermented vegetables, most commonly napa cabbage and radishes, seasoned with chili powder, garlic, ginger, and fish sauce. Known for its tangy and spicy flavor, Kimchi is packed with probiotics and is a staple in Korean cuisine. (1 day for fermentation)',
-        'category' => json_encode(['Side dishes']),
+        'category' => json_encode(['Appetizers']),
         'ingredients' => json_encode(['napa cabbage', 'salt', 'gochugaru (Korean chili powder)', 'garlic', 'ginger', 'scallions', 'fish sauce']),
         'country' => 'South Korea',
         'prep_time' => 10,

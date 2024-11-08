@@ -147,4 +147,41 @@ class EloquentRecipesRepository implements RecipesRepository
       })->toArray()
     ];
   }
+
+  public function getAllCategoryCounts()
+  {
+    $allCount = RecipesModel::all();
+    $mainCourseCount = RecipesModel::where('category', 'LIKE', '%Main course%')->get();
+    $breakfastCount = RecipesModel::where('category', 'LIKE', '%Breakfast%')->get();
+    $soupsCount = RecipesModel::where('category', 'LIKE', '%Soups%')->get();
+    $pastaCount = RecipesModel::where('category', 'LIKE', '%Pasta%')->get();
+    $dessertsCount = RecipesModel::where('category', 'LIKE', '%Desserts%')->get();
+    $saladCount = RecipesModel::where('category', 'LIKE', '%Salad%')->get();
+    $bakedCount = RecipesModel::where('category', 'LIKE', '%Baked%')->get();
+    $snacksCount = RecipesModel::where('category', 'LIKE', '%Snacks%')->get();
+    $appetizersCount = RecipesModel::where('category', 'LIKE', '%Appetizers%')->get();
+    $seafoodCount = RecipesModel::where('category', 'LIKE', '%Seafood%')->get();
+
+    return [
+      'all' => count($allCount),
+      'main_course' => count($mainCourseCount),
+      'breakfast' => count($breakfastCount),
+      'soups' => count($soupsCount),
+      'pasta' => count($pastaCount),
+      'desserts' => count($dessertsCount),
+      'salad' => count($saladCount),
+      'baked' => count($bakedCount),
+      'snacks' => count($snacksCount),
+      'appetizers' => count($appetizersCount),
+      'seafood' => count($seafoodCount),
+    ];
+  }
+  public function getAllRecipeCountry()
+  {
+    $countries = RecipesModel::select('country')->distinct()->get();
+
+    return [
+      'country' => $countries
+    ];
+  }
 }
