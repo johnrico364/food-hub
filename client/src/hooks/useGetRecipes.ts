@@ -12,6 +12,29 @@ export const useGetRecipes = () => {
     }
   };
 
+  const getRecipesByCountry = async (category: string, country: string) => {
+    type Props = {
+      id: number;
+      name: string;
+      description: string;
+      country: string;
+    };
+
+    try {
+      const data = await axios.get(
+        `http://127.0.0.1:8000/api/recipes/category/${category}`
+      );
+      const recipes = data?.data?.data;
+      const filteredReturn = recipes?.filter((data: Props) => {
+        return data.country === country;
+      });
+
+      return filteredReturn;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getRecipeDetails = async (id: string) => {
     try {
       const data = await axios.get(
@@ -54,6 +77,7 @@ export const useGetRecipes = () => {
   };
   return {
     getRecipesByCategory,
+    getRecipesByCountry,
     getRecipeDetails,
     getRecipesCount,
     getRecipeCountries,
