@@ -1,21 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 
 // Components
 import { CategoryBox } from "@/components/category-box";
 import { RecipeBox } from "@/components/recipe-box";
-
-// Icons
-import { AiOutlineAppstoreAdd } from "react-icons/ai";
-import { CiBowlNoodles } from "react-icons/ci";
-import { IoRestaurantOutline } from "react-icons/io5";
-import { LiaMugHotSolid } from "react-icons/lia";
-import { LuIceCream2, LuSoup } from "react-icons/lu";
-import { TbBurger } from "react-icons/tb";
-
-// Fakedata
-import Recipes_Data from "@/recipes.json";
+// Hooks
+import { useGetRecipes } from "@/hooks/useGetRecipes";
+import { categories } from "@/hooks/categories";
 
 type Props = {
   params: {
@@ -24,15 +16,16 @@ type Props = {
 };
 
 type RecipeProps = {
-  Name: string;
-  Instructions: string;
-  Month: string;
+  id: number;
+  name: string;
+  description: string;
 };
 
 export default function Country({ params }: Props) {
-  const recipes_data: RecipeProps[] = Recipes_Data;
+  const { getRecipesByCountry, getRecipesCount } = useGetRecipes();
 
-  const [recipes] = useState(recipes_data.slice(0, 130));
+  const [recipes, set_recipes] = useState([]);
+  const [categoryType, set_categoryType] = useState("All");
   const [pageNumber, set_pageNumber] = useState(0);
 
   const recipesPerPage = 10;
@@ -48,27 +41,47 @@ export default function Country({ params }: Props) {
     set_pageNumber(selected);
   };
 
+  const effectFn = async () => {
+    const recipesData = await getRecipesByCountry(
+      categoryType,
+      params.country_name
+    );
+    const categoryCount = await getRecipesCount();
+    set_recipes(recipesData);
+
+    let categoryIndex = 0;
+    for (const key in categoryCount) {
+      categories[categoryIndex].items = categoryCount[key];
+      categoryIndex++;
+    }
+  };
+
+  useEffect(() => {
+    effectFn();
+  }, [categoryType]);
+
   return (
     <div className="recipe-country-section">
       <div className="category-container ">
-        <CategoryBox icon={AiOutlineAppstoreAdd} name={"All"} items={1309} />
-        <CategoryBox
-          icon={IoRestaurantOutline}
-          name={"Main Course"}
-          items={68}
-        />
-        <CategoryBox icon={LiaMugHotSolid} name={"Breakfast"} items={125} />
-        <CategoryBox icon={LuSoup} name={"Soups"} items={189} />
-        <CategoryBox icon={CiBowlNoodles} name={"Pasta"} items={73} />
-        <CategoryBox icon={TbBurger} name={"Burgers"} items={102} />
-        <CategoryBox icon={LuIceCream2} name={"Desserts"} items={189} />
+        {categories?.map((category, i) => {
+          return (
+            <div key={i} onClick={() => set_categoryType(category.name)}>
+              <CategoryBox
+                icon={category.icon}
+                name={category.name}
+                items={category.items}
+                isActive={category.name === categoryType}
+              />
+            </div>
+          );
+        })}
       </div>
 
       <div className="recipe-container">
-        {displayRecipes.map((data, i) => {
+        {displayRecipes.map((r: RecipeProps, i) => {
           return (
             <div key={i}>
-              <RecipeBox name={data.Name} description={data.Instructions} />
+              <RecipeBox id={r.id} name={r.name} description={r.description} />
             </div>
           );
         })}
