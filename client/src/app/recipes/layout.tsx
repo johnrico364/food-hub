@@ -2,22 +2,32 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // icons
 import { PiHouseLight } from "react-icons/pi";
 import { BiWorld } from "react-icons/bi";
 import { usePathname } from "next/navigation";
+import { useGetRecipes } from "@/hooks/useGetRecipes";
 
 type Props = {
   children: React.ReactNode;
 };
 
-const country = ["Philippines", "USA"];
-
 export default function RecipesLayout({ children }: Props) {
   const pathname = usePathname();
+  const { getRecipeCountries } = useGetRecipes();
+
+  const [countries, set_countries] = useState([]);
   const [showCountries, set_showCountries] = useState(false);
+
+  const effectFn = async () => {
+    const response = await getRecipeCountries();
+    set_countries(response);
+  };
+  useEffect(() => {
+    effectFn();
+  }, []);
 
   return (
     <div className="recipes-layout-section">
@@ -35,7 +45,7 @@ export default function RecipesLayout({ children }: Props) {
             <Link
               href={"/recipes"}
               className={
-                pathname === '/recipes' ? "nav-link-active" : "nav-link"
+                pathname === "/recipes" ? "nav-link-active" : "nav-link"
               }
             >
               <span className="pb-1">
@@ -46,7 +56,9 @@ export default function RecipesLayout({ children }: Props) {
 
             <div
               className={
-                pathname.startsWith('/recipes/country') ? "nav-link-active" : "nav-link"
+                pathname.startsWith("/recipes/country")
+                  ? "nav-link-active"
+                  : "nav-link"
               }
               onClick={() => set_showCountries(!showCountries)}
             >
@@ -56,11 +68,11 @@ export default function RecipesLayout({ children }: Props) {
               Country
             </div>
             <ul className={showCountries ? "pl-3 cursor-pointer" : "hidden"}>
-              {country.map((c) => {
+              {countries.map((c: { country: string }, i) => {
                 return (
-                  <li key={c}>
-                    <Link href={`/recipes/country/${c.toLowerCase()}`}>
-                      {c}
+                  <li key={i}>
+                    <Link href={`/recipes/country/${c?.country}`}>
+                      {c?.country}
                     </Link>
                   </li>
                 );
