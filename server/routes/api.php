@@ -11,8 +11,8 @@ use App\Http\Controllers\API\APIController;
 // http://127.0.0.1:8000/api/index
 Route::get('/index', [APIController::class, 'index']);
 Route::get('/recipes/category/{type}', [APIController::class, 'getRecipeType']); //done
-Route::get('/recipes/country/{name}', [APIController::class, 'getRecipeCountry']); //done
 Route::get('/recipe_details/{id}', [APIController::class, 'getRecipeDetails']); //done
 Route::get('/search', );
 Route::get('/category_count', [APIController::class, 'getRecipeCategoryCount']); //done
+Route::get('/country/category_count/{country_name}');
 Route::get('/country_list', [APIController::class, 'getRecipeCountries']);//done
