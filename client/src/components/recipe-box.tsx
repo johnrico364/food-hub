@@ -14,7 +14,7 @@ export function RecipeBox(data: Props) {
   return (
     <div className="recipe-box w-[14rem] h-[19.8rem]">
       <div className="card bg-base-100">
-        <figure className="px-3 mt-2 h-[150px] w-[13.6rem] relative overflow-hidden">
+        <figure className="mt-2 ml-1 h-[150px] w-[13.4rem] relative overflow-hidden">
           <Image
             className="rounded-xl object-contain"
             src={`http://127.0.0.1:8000/api/image/${data?.image}`}

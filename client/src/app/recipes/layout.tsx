@@ -68,7 +68,7 @@ export default function RecipesLayout({ children }: Props) {
               Country
             </div>
             <ul className={showCountries ? "pl-3 cursor-pointer" : "hidden"}>
-              {countries.map((c: { country: string }, i) => {
+              {countries?.map((c: { country: string }, i) => {
                 return (
                   <li key={i}>
                     <Link href={`/recipes/country/${c?.country}`}>
