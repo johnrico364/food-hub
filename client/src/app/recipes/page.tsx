@@ -15,62 +15,6 @@ type RecipeProps = {
   name: string;
   description: string;
 };
-//   {
-//     icon: AiOutlineAppstoreAdd,
-//     name: "All",
-//     items: 0,
-//   },
-//   {
-//     icon: IoRestaurantOutline,
-//     name: "Main course",
-//     items: 0,
-//   },
-//   {
-//     icon: LiaMugHotSolid,
-//     name: "Breakfast",
-//     items: 0,
-//   },
-//   {
-//     icon: LuSoup,
-//     name: "Soups",
-//     items: 0,
-//   },
-//   {
-//     icon: CiBowlNoodles,
-//     name: "Pasta",
-//     items: 0,
-//   },
-//   {
-//     icon: LuIceCream2,
-//     name: "Desserts",
-//     items: 0,
-//   },
-//   {
-//     icon: LuSalad,
-//     name: "Salad",
-//     items: 0,
-//   },
-//   {
-//     icon: MdOutlineBakeryDining,
-//     name: "Baked",
-//     items: 0,
-//   },
-//   {
-//     icon: LuPopcorn,
-//     name: "Snacks",
-//     items: 0,
-//   },
-//   {
-//     icon: BiBowlRice,
-//     name: "Appetizers",
-//     items: 0,
-//   },
-//   {
-//     icon: IoFishOutline,
-//     name: "Seafood",
-//     items: 0,
-//   },
-// ];
 
 export default function Recipes() {
   const { getRecipesByCategory, getRecipesCount } = useGetRecipes();
@@ -102,6 +46,8 @@ export default function Recipes() {
       categories[categoryIndex].items = categoryCount[key];
       categoryIndex++;
     }
+
+    console.log(recipesData)
   };
 
   useEffect(() => {
