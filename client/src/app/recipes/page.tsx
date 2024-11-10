@@ -14,6 +14,7 @@ type RecipeProps = {
   id: number;
   name: string;
   description: string;
+  image: string;
 };
 
 export default function Recipes() {
@@ -46,8 +47,6 @@ export default function Recipes() {
       categories[categoryIndex].items = categoryCount[key];
       categoryIndex++;
     }
-
-    console.log(recipesData)
   };
 
   useEffect(() => {
@@ -83,7 +82,12 @@ export default function Recipes() {
         {displayRecipes.map((r: RecipeProps, i) => {
           return (
             <div key={i}>
-              <RecipeBox id={r.id} name={r.name} description={r.description} />
+              <RecipeBox
+                id={r.id}
+                name={r.name}
+                description={r.description}
+                image={r.image}
+              />
             </div>
           );
         })}

@@ -16,3 +16,6 @@ Route::get('/search', );
 Route::get('/category_count', [APIController::class, 'getRecipeCategoryCount']); //done
 Route::get('/country/category_count/{country_name}', [APIController::class, 'getRecipeCategoryCountByCountry']); //done
 Route::get('/country_list', [APIController::class, 'getRecipeCountries']);//done
+Route::get('/image/{filename}', function ($filename) {
+  return response()->file(public_path('images/' . $filename));
+}); //done

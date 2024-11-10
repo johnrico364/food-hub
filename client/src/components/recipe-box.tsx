@@ -1,12 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Picture from "../images/utils/landing-bg-recipe.png";
 
 type Props = {
   id: number;
   name: string;
   description: string;
+  image: string;
 };
 
 export function RecipeBox(data: Props) {
@@ -17,7 +17,7 @@ export function RecipeBox(data: Props) {
         <figure className="px-3 mt-2 h-[150px] w-[225px]">
           <Image
             className="rounded-xl object-cover"
-            src={Picture}
+            src={`http://127.0.0.1:8000/api/image/${data?.image}`}
             alt="Shoes"
             height={120}
             width={200}
