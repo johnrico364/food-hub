@@ -67,6 +67,17 @@ export const useGetRecipes = () => {
     }
   };
 
+  const getRecipeCountbyCountry = async (countryName: string) => {
+    try {
+      const data = await axios.get(
+        `http://127.0.0.1:8000/api/country/category_count/${countryName}`
+      );
+      return data?.data?.category_count;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getRecipeCountries = async () => {
     try {
       const data = await axios.get("http://127.0.0.1:8000/api/country_list");
@@ -80,6 +91,7 @@ export const useGetRecipes = () => {
     getRecipesByCountry,
     getRecipeDetails,
     getRecipesCount,
+    getRecipeCountbyCountry,
     getRecipeCountries,
   };
 };

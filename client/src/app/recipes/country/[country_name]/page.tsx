@@ -22,7 +22,7 @@ type RecipeProps = {
 };
 
 export default function Country({ params }: Props) {
-  const { getRecipesByCountry, getRecipesCount } = useGetRecipes();
+  const { getRecipesByCountry, getRecipeCountbyCountry } = useGetRecipes();
 
   const [recipes, set_recipes] = useState([]);
   const [categoryType, set_categoryType] = useState("All");
@@ -46,7 +46,7 @@ export default function Country({ params }: Props) {
       categoryType,
       params.country_name
     );
-    const categoryCount = await getRecipesCount();
+    const categoryCount = await getRecipeCountbyCountry(params.country_name);
     set_recipes(recipesData);
 
     let categoryIndex = 0;
