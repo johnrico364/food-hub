@@ -130,38 +130,87 @@ class EloquentRecipesRepository implements RecipesRepository
 
   public function getAllCategoryCounts()
   {
-    $allCount = RecipesModel::all();
-    $mainCourseCount = RecipesModel::where('category', 'LIKE', '%Main course%')->get();
-    $breakfastCount = RecipesModel::where('category', 'LIKE', '%Breakfast%')->get();
-    $soupsCount = RecipesModel::where('category', 'LIKE', '%Soups%')->get();
-    $pastaCount = RecipesModel::where('category', 'LIKE', '%Pasta%')->get();
-    $dessertsCount = RecipesModel::where('category', 'LIKE', '%Desserts%')->get();
-    $saladCount = RecipesModel::where('category', 'LIKE', '%Salad%')->get();
-    $bakedCount = RecipesModel::where('category', 'LIKE', '%Baked%')->get();
-    $snacksCount = RecipesModel::where('category', 'LIKE', '%Snacks%')->get();
-    $appetizersCount = RecipesModel::where('category', 'LIKE', '%Appetizers%')->get();
-    $seafoodCount = RecipesModel::where('category', 'LIKE', '%Seafood%')->get();
+    $allCount = RecipesModel::all()->count();
+    $mainCourseCount = RecipesModel::where('category', 'LIKE', '%Main course%')->count();
+    $breakfastCount = RecipesModel::where('category', 'LIKE', '%Breakfast%')->count();
+    $soupsCount = RecipesModel::where('category', 'LIKE', '%Soups%')->count();
+    $pastaCount = RecipesModel::where('category', 'LIKE', '%Pasta%')->count();
+    $dessertsCount = RecipesModel::where('category', 'LIKE', '%Desserts%')->count();
+    $saladCount = RecipesModel::where('category', 'LIKE', '%Salad%')->count();
+    $bakedCount = RecipesModel::where('category', 'LIKE', '%Baked%')->count();
+    $snacksCount = RecipesModel::where('category', 'LIKE', '%Snacks%')->count();
+    $appetizersCount = RecipesModel::where('category', 'LIKE', '%Appetizers%')->count();
+    $seafoodCount = RecipesModel::where('category', 'LIKE', '%Seafood%')->count();
 
     return [
-      'all' => count($allCount),
-      'main_course' => count($mainCourseCount),
-      'breakfast' => count($breakfastCount),
-      'soups' => count($soupsCount),
-      'pasta' => count($pastaCount),
-      'desserts' => count($dessertsCount),
-      'salad' => count($saladCount),
-      'baked' => count($bakedCount),
-      'snacks' => count($snacksCount),
-      'appetizers' => count($appetizersCount),
-      'seafood' => count($seafoodCount),
+      'all' => $allCount,
+      'main_course' => $mainCourseCount,
+      'breakfast' => $breakfastCount,
+      'soups' => $soupsCount,
+      'pasta' => $pastaCount,
+      'desserts' => $dessertsCount,
+      'salad' => $saladCount,
+      'baked' => $bakedCount,
+      'snacks' => $snacksCount,
+      'appetizers' => $appetizersCount,
+      'seafood' => $seafoodCount,
     ];
   }
+  public function getAllCategoryCountsByCountry(string $countryName)
+  {
+    $allCount = RecipesModel::where('country', $countryName)->count();
+    $mainCourseCount = RecipesModel::where('country', $countryName)
+      ->where('category', 'LIKE', '%Main course%')
+      ->count();
+    $breakfastCount = RecipesModel::where('country', $countryName)
+      ->where('category', 'LIKE', '%Breakfast%')
+      ->count();
+    $soupsCount = RecipesModel::where('country', $countryName)
+      ->where('category', 'LIKE', '%Soups%')
+      ->count();
+    $pastaCount = RecipesModel::where('country', $countryName)
+      ->where('category', 'LIKE', '%Pasta%')
+      ->count();
+    $dessertsCount = RecipesModel::where('country', $countryName)
+      ->where('category', 'LIKE', '%Desserts%')
+      ->count();
+    $saladCount = RecipesModel::where('country', $countryName)
+      ->where('category', 'LIKE', '%Salad%')
+      ->count();
+    $bakedCount = RecipesModel::where('country', $countryName)
+      ->where('category', 'LIKE', '%Baked%')
+      ->count();
+    $snacksCount = RecipesModel::where('country', $countryName)
+      ->where('category', 'LIKE', '%Snacks%')
+      ->count();
+    $appetizersCount = RecipesModel::where('country', $countryName)
+      ->where('category', 'LIKE', '%Appetizers%')
+      ->count();
+    $seafoodCount = RecipesModel::where('country', $countryName)
+      ->where('category', 'LIKE', '%Seafood%')
+      ->count();
+
+    return [
+      'all' => $allCount,
+      'main_course' => $mainCourseCount,
+      'breakfast' => $breakfastCount,
+      'soups' => $soupsCount,
+      'pasta' => $pastaCount,
+      'desserts' => $dessertsCount,
+      'salad' => $saladCount,
+      'baked' => $bakedCount,
+      'snacks' => $snacksCount,
+      'appetizers' => $appetizersCount,
+      'seafood' => $seafoodCount,
+    ];
+  }
+
   public function getAllRecipeCountry()
   {
     $countries = RecipesModel::select('country')->distinct()->get();
 
     return [
-      'country' => $countries
+      'country' => $countries,
     ];
   }
 }

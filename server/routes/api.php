@@ -14,5 +14,5 @@ Route::get('/recipes/category/{type}', [APIController::class, 'getRecipeType']);
 Route::get('/recipe_details/{id}', [APIController::class, 'getRecipeDetails']); //done
 Route::get('/search', );
 Route::get('/category_count', [APIController::class, 'getRecipeCategoryCount']); //done
-Route::get('/country/category_count/{country_name}');
+Route::get('/country/category_count/{country_name}', [APIController::class, 'getRecipeCategoryCountByCountry']); //done
 Route::get('/country_list', [APIController::class, 'getRecipeCountries']);//done

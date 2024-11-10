@@ -10,5 +10,7 @@ interface RecipesRepository
   public function findById(int $id): ?Recipes;
   public function searchByTerm(string $searchTerm): array;
   public function getAllCategoryCounts();
+  public function getAllCategoryCountsByCountry(string $countryName);
   public function getAllRecipeCountry();
+
 }

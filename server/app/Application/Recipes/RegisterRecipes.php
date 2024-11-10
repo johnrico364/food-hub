@@ -43,6 +43,10 @@ class RegisterRecipes
   {
     return $this->recipesRepository->getAllCategoryCounts();
   }
+  public function findAllCategoryCountByCountry(string $country_name)
+  {
+    return $this->recipesRepository->getAllCategoryCountsByCountry($country_name);
+  }
   public function findAllCountries()
   {
     return $this->recipesRepository->getAllRecipeCountry();

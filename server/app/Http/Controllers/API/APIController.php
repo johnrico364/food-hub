@@ -42,6 +42,11 @@ class APIController extends Controller
 
     return response()->json(['category_count' => $recipeCount], 200);
   }
+  public function getRecipeCategoryCountByCountry($countryName){
+    $recipeCount = $this->registerRecipes->findAllCategoryCountByCountry($countryName);
+    
+    return response()->json(['category_count' => $recipeCount], 200);
+  }
   public function getRecipeCountries()
   {
     $recipeCountries = $this->registerRecipes->findAllCountries();
