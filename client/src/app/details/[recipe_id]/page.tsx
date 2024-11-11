@@ -26,11 +26,12 @@ type RecipeProps = {
   yt_link: string;
 };
 
-const ingredients = ["Egg", "Pork", "Soy Sauce", "Vinegar", "Black Pepper"];
+// const ingredients = ["Egg", "Pork", "Soy Sauce", "Vinegar", "Black Pepper"];
 
 export default function RecipeDetails({ params }: Props) {
   const { getRecipeDetails } = useGetRecipes();
 
+  const [ingredients, set_ingredients] = useState([]);
   const [recipeDetails, set_recipeDetails] = useState<RecipeProps>();
   const [pageNumber, set_pageNumber] = useState(0);
   const pageVisited = pageNumber * 3;
@@ -52,6 +53,7 @@ export default function RecipeDetails({ params }: Props) {
     const response = await getRecipeDetails(params.recipe_id);
     console.log(response);
     set_recipeDetails(response);
+    set_ingredients(response?.ingredients);
   };
 
   useEffect(() => {
@@ -66,8 +68,10 @@ export default function RecipeDetails({ params }: Props) {
             <div className="basis-6/12">
               <Image
                 className="recipe-pic"
-                src={require("@/images/ingredients/Pork.jpg")}
+                src={`http://127.0.0.1:8000/api/image/${recipeDetails?.image}`}
                 alt="recipe"
+                width={1000}
+                height={150}
               />
             </div>
             <div className="basis-6/12 px-10">
@@ -121,12 +125,19 @@ export default function RecipeDetails({ params }: Props) {
                   {"<"}
                 </button>
                 {displayIngredients.map((data, i) => {
+                  let imageSrc: string;
+                  try {
+                    imageSrc = require(`@/images/ingredients/${data}.jpg`);
+                  } catch (error) {
+                    imageSrc = require("@/images/ingredients/default.jpg");
+                    console.log(error);
+                  }
                   return (
                     <div className="ingre-card" key={i}>
                       <div className="center-items">
                         <Image
                           className="ingre-pic"
-                          src={require(`@/images/ingredients/${data}.jpg`)}
+                          src={imageSrc}
                           alt="recipe"
                         />
                       </div>
@@ -148,7 +159,7 @@ export default function RecipeDetails({ params }: Props) {
               <div className="wrapper justify-end">
                 <button
                   className="tutorial-btn"
-                  onClick={() => window.open(recipeDetails?.yt_link, '_blank')}
+                  onClick={() => window.open(recipeDetails?.yt_link, "_blank")}
                 >
                   Show Tutorial
                 </button>
