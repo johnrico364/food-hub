@@ -19,6 +19,7 @@ type RecipeProps = {
   id: number;
   name: string;
   description: string;
+  image: string;
 };
 
 export default function Country({ params }: Props) {
@@ -81,7 +82,12 @@ export default function Country({ params }: Props) {
         {displayRecipes.map((r: RecipeProps, i) => {
           return (
             <div key={i}>
-              <RecipeBox id={r.id} name={r.name} description={r.description} />
+              <RecipeBox
+                id={r.id}
+                name={r.name}
+                description={r.description}
+                image={r.image}
+              />
             </div>
           );
         })}
