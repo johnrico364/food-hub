@@ -84,7 +84,7 @@ class EloquentRecipesRepository implements RecipesRepository
       ->orWhere('description', $searchTerm)
       ->orWhere('category', $searchTerm)
       ->orWhere('country', $searchTerm)
-      ->orWhere('ingredients', $searchTerm);
+      ->orWhere('ingredients', $searchTerm)->first();
 
     $relatedMatch = RecipesModel::where('id', '!=', $exactMatch?->id)->where(
       function ($query) use ($searchTerm) {

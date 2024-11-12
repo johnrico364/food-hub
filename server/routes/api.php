@@ -12,7 +12,7 @@ use App\Http\Controllers\API\APIController;
 Route::get('/index', [APIController::class, 'index']);
 Route::get('/recipes/category/{type}', [APIController::class, 'getRecipeType']); //done
 Route::get('/recipe_details/{id}', [APIController::class, 'getRecipeDetails']); //done
-Route::get('/search', );
+Route::get('/search', [APIController::class, 'searchRecipe']); //done
 Route::get('/category_count', [APIController::class, 'getRecipeCategoryCount']); //done
 Route::get('/country/category_count/{country_name}', [APIController::class, 'getRecipeCategoryCountByCountry']); //done
 Route::get('/country_list', [APIController::class, 'getRecipeCountries']);//done

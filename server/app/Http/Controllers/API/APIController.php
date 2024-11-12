@@ -36,15 +36,31 @@ class APIController extends Controller
 
     return response()->json(['data' => $recipe->toArray()], 200);
   }
+  public function searchRecipe(Request $request)
+  {
+    $searchTerm = $request->input('searched');
+
+    if (!$searchTerm) {
+      return response()->json(['message' => 'Invalid search'], 400);
+    }
+
+    $result = $this->registerRecipes->searchRecipes($searchTerm);
+    if (is_null($result['exact_match'] && empty($result['related_match']))) {
+      response()->json(['message' => 'No match found'], 404);
+    }
+
+    return response()->json($result);
+  }
   public function getRecipeCategoryCount()
   {
     $recipeCount = $this->registerRecipes->findAllCategoryCount();
 
     return response()->json(['category_count' => $recipeCount], 200);
   }
-  public function getRecipeCategoryCountByCountry($countryName){
+  public function getRecipeCategoryCountByCountry($countryName)
+  {
     $recipeCount = $this->registerRecipes->findAllCategoryCountByCountry($countryName);
-    
+
     return response()->json(['category_count' => $recipeCount], 200);
   }
   public function getRecipeCountries()
