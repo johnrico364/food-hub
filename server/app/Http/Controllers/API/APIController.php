@@ -45,8 +45,8 @@ class APIController extends Controller
     }
 
     $result = $this->registerRecipes->searchRecipes($searchTerm);
-    if (is_null($result['exact_match'] && empty($result['related_match']))) {
-      response()->json(['message' => 'No match found'], 404);
+    if (is_null($result['exact_match']) && empty($result['related_match'])) {
+      return response()->json(['message' => 'No match found'], 404);
     }
 
     return response()->json($result);
