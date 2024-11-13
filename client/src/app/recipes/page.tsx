@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 // Components
 import { CategoryBox } from "@/components/category-box";
@@ -7,6 +7,7 @@ import { RecipeBox } from "@/components/recipe-box";
 // Hooks
 import { useGetRecipes } from "@/hooks/useGetRecipes";
 import { categories } from "@/hooks/categories";
+import { useSearchRecipes } from "@/hooks/useSearchRecipes";
 // Icons
 import { IoSearch } from "react-icons/io5";
 
@@ -19,8 +20,11 @@ type RecipeProps = {
 
 export default function Recipes() {
   const { getRecipesByCategory, getRecipesCount } = useGetRecipes();
+  const { searchRecipes } = useSearchRecipes();
 
   const [recipes, set_recipes] = useState([]);
+  const [searchTerm, set_searchTerm] = useState("");
+  const [isSearching, set_isSearching] = useState(false);
   const [categoryType, set_categoryType] = useState("All");
   const [pageNumber, set_pageNumber] = useState(0);
 
@@ -37,7 +41,28 @@ export default function Recipes() {
     set_pageNumber(selected);
   };
 
+  const handleSearchFn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    set_isSearching(true);
+
+    if (searchTerm.trim() === "") {
+      const recipesData = await getRecipesByCategory(categoryType);
+      set_recipes(recipesData);
+      return;
+    }
+    const response = await searchRecipes(searchTerm.trim());
+    if (response?.status === 404) {
+      alert(response?.data);
+      return;
+    }
+    set_recipes(response?.data);
+    set_pageNumber(0);
+    set_categoryType("All");
+  };
+
   const effectFn = async () => {
+    if (isSearching) return;
+
     const recipesData = await getRecipesByCategory(categoryType);
     const categoryCount = await getRecipesCount();
     set_recipes(recipesData);
@@ -52,16 +77,22 @@ export default function Recipes() {
   useEffect(() => {
     effectFn();
   }, [categoryType]);
+
+  // Reset isSearching after recipes update
+  useEffect(() => {
+    if (isSearching) set_isSearching(false);
+  }, [recipes]);
   return (
     <div className="recipes-section">
-      <div className="wrapper search-container">
+      <form className="wrapper search-container" onSubmit={handleSearchFn}>
         <IoSearch className="icon" />
         <input
           className="search-input"
           type="text"
           placeholder="Search Recipe here..."
+          onChange={(e) => set_searchTerm(e.target.value)}
         />
-      </div>
+      </form>
 
       <div className="category-container ">
         {categories?.map((category, i) => {
