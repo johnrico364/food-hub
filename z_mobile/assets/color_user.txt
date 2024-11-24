@@ -1,0 +1,23 @@
+// Yellow (#fbb500)
+Color.fromARGB(255, 251, 181, 0)
+
+// Yellow fade (#ffecba)
+Color.fromARGB(255, 255, 236, 186)
+
+// Green (#00932c)
+Color.fromARGB(255, 0, 147, 44)
+
+// Green fade (#cce9d5)
+Color.fromARGB(255, 204, 233, 213)
+
+// White (#ffffff)
+Color.fromARGB(255, 255, 255, 255)
+
+// White fade (#f4f4f4)
+Color.fromARGB(255, 244, 244, 244)
+
+// Gray (#7e7e7e)
+Color.fromARGB(255, 126, 126, 126)
+
+// Black (#000000)
+Color.fromARGB(255, 0, 0, 0)
