@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:z_mobile/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,9 +10,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Flutter Demo',
-      home: Text("Hello world"),
+    return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Poppins',
+      ),
+      home: const SplashScreen(),
     );
   }
 }
