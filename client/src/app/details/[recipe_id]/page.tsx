@@ -26,8 +26,6 @@ type RecipeProps = {
   yt_link: string;
 };
 
-// const ingredients = ["Egg", "Pork", "Soy Sauce", "Vinegar", "Black Pepper"];
-
 export default function RecipeDetails({ params }: Props) {
   const { getRecipeDetails } = useGetRecipes();
 
@@ -35,6 +33,7 @@ export default function RecipeDetails({ params }: Props) {
   const [recipeDetails, set_recipeDetails] = useState<RecipeProps>();
   const [pageNumber, set_pageNumber] = useState(0);
   const pageVisited = pageNumber * 3;
+  const [showModal, set_showModal] = useState(false);
 
   const displayIngredients = ingredients.slice(pageVisited, pageVisited + 3);
 
@@ -159,7 +158,7 @@ export default function RecipeDetails({ params }: Props) {
               <div className="wrapper justify-end">
                 <button
                   className="tutorial-btn"
-                  onClick={() => window.open(recipeDetails?.yt_link, "_blank")}
+                  onClick={() => set_showModal(true)}
                 >
                   Show Tutorial
                 </button>
@@ -168,6 +167,30 @@ export default function RecipeDetails({ params }: Props) {
           </div>
         </div>
       </div>
+
+      {/* Add Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-4 rounded-lg w-11/12 max-w-4xl">
+            <div className="flex justify-end mb-2">
+              <button 
+                className="text-gray-500 hover:text-gray-700"
+                onClick={() => set_showModal(false)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="relative pt-[56.25%]">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full"
+                src={recipeDetails?.yt_link.replace('watch?v=', 'embed/')}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
