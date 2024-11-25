@@ -13,4 +13,7 @@ interface RecipesRepository
   public function getAllCategoryCountsByCountry(string $countryName);
   public function getAllRecipeCountry();
 
+  //blade business logic
+  public function findAll() : array;
+
 }
