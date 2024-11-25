@@ -204,13 +204,22 @@ class EloquentRecipesRepository implements RecipesRepository
       'seafood' => $seafoodCount,
     ];
   }
-
   public function getAllRecipeCountry()
   {
     $countries = RecipesModel::select('country')->distinct()->get();
 
     return [
       'country' => $countries,
+    ];
+  }
+
+  //blade business logic
+  public function findAll() : array
+  {
+    $recipes = RecipesModel::all();
+
+    return [
+      'recipes' => $recipes,
     ];
   }
 }

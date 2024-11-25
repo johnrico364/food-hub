@@ -51,4 +51,10 @@ class RegisterRecipes
   {
     return $this->recipesRepository->getAllRecipeCountry();
   }
+
+  //blade business logic
+  public function findAllRecipes()
+  {
+    return $this->recipesRepository->findAll();
+  }
 }
