@@ -7,27 +7,6 @@ use App\Domain\Recipes\Recipes;
 
 class EloquentRecipesRepository implements RecipesRepository
 {
-  // Add Recipes
-  public function create(Recipes $recipes): void
-  {
-    $recipesModel = RecipesModel::find($recipes->getId()) ?? new RecipesModel();
-
-    $recipesModel->id = $recipes->getId();
-    $recipesModel->name = $recipes->getName();
-    $recipesModel->description = $recipes->getDescription();
-    $recipesModel->category = $recipes->getCategory();
-    $recipesModel->ingredients = $recipes->getIngredients();
-    $recipesModel->country = $recipes->getCountry();
-    $recipesModel->prep_time = $recipes->getPrepTime();
-    $recipesModel->yt_link = $recipes->getYtLink();
-    $recipesModel->image = $recipes->getImage();
-    $recipesModel->created_at = $recipes->getCreated();
-    $recipesModel->updated_at = $recipes->getUpdated();
-  }
-  public function update(Recipes $recipes): void
-  {
-  }
-
   // Find Recipes by category.
   public function findByCategory(string $category): array
   {
@@ -214,12 +193,32 @@ class EloquentRecipesRepository implements RecipesRepository
   }
 
   //blade business logic
-  public function findAll() : array
+  public function findAll(): array
   {
     $recipes = RecipesModel::all();
 
     return [
       'recipes' => $recipes,
     ];
+  }
+  public function create(Recipes $recipes): void
+  {
+    $recipesModel = RecipesModel::find($recipes->getId()) ?? new RecipesModel();
+
+    $recipesModel->id = $recipes->getId();
+    $recipesModel->name = $recipes->getName();
+    $recipesModel->description = $recipes->getDescription();
+    $recipesModel->category = $recipes->getCategory();
+    $recipesModel->ingredients = $recipes->getIngredients();
+    $recipesModel->country = $recipes->getCountry();
+    $recipesModel->prep_time = $recipes->getPrepTime();
+    $recipesModel->yt_link = $recipes->getYtLink();
+    $recipesModel->image = $recipes->getImage();
+    $recipesModel->created_at = $recipes->getCreated();
+    $recipesModel->updated_at = $recipes->getUpdated();
+    $recipesModel->save();
+  }
+  public function update(Recipes $recipes): void
+  {
   }
 }

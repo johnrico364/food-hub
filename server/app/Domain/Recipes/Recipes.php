@@ -4,7 +4,7 @@ namespace App\Domain\Recipes;
 
 class Recipes
 {
-  private int $id;
+  private ?int $id;
   private ?string $name;
   private ?string $description;
   private ?string $category;

@@ -18,11 +18,6 @@
         .btn-danger {
             font-size: 13px;
         }
-
-        .content-side {
-            height: 100vh;
-            overflow-y: auto;
-        }
     </style>
 </head>
 
