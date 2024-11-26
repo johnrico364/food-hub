@@ -12,14 +12,6 @@ class RegisterRecipes
   {
     $this->recipesRepository = $recipesRepository;
   }
-  public function create(int $id, string $name, string $category)
-  {
-    $data = new Recipes($id, $name, $category);
-    $this->recipesRepository->create($data);
-  }
-  public function update()
-  {
-  }
   public function findByCategory(string $category)
   {
     return $this->recipesRepository->findByCategory($category);
@@ -56,5 +48,35 @@ class RegisterRecipes
   public function findAllRecipes()
   {
     return $this->recipesRepository->findAll();
+  }
+  public function create(
+    string $name,
+    string $description,
+    string $category,
+    string $ingredients,
+    string $country,
+    int $prep_time,
+    string $yt_link,
+    string $image,
+    string $created_at,
+    string $updated_at
+  ) {
+    $data = new Recipes(
+      null,
+      $name,
+      $description,
+      $category,
+      $ingredients,
+      $country,
+      $prep_time,
+      $yt_link,
+      $image,
+      $created_at,
+      $updated_at
+    );
+    $this->recipesRepository->create($data);
+  }
+  public function update()
+  {
   }
 }
