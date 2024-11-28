@@ -11,5 +11,8 @@ Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes.index'
 Route::get('/recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
 Route::post('/recipes/store', [RecipeController::class, 'store'])->name('recipes.store');
 Route::get('/recipes/update/{id}', [RecipeController::class, 'update'])->name('recipes.update');
+Route::post('/recipes/update/store/{id}', [RecipeController::class, 'updateStore'])->name('recipes.update.store');
+
+Route::get('/settings', [RecipeController::class, 'settings'])->name('settings');
 
 
