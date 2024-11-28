@@ -103,4 +103,17 @@ class RegisterRecipes
     );
     $this->recipesRepository->update($updateRecipes);
   }
+  public function deleteRecipe(int $id)
+  {
+    $this->recipesRepository->delete($id);
+  }
+
+  public function findDeletedRecipes()
+  {
+    return $this->recipesRepository->findDeleted();
+  }
+  public function restoreRecipe(int $id)
+  {
+    $this->recipesRepository->restore($id);
+  }
 }

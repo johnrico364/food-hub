@@ -30,10 +30,7 @@
             <div class="col-11 content-side">
                 <div class="row justify-content-center">
                     <div class="mx-4 mt-5">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h2>Recipes</h2>
-                            <a href="/recipes/create" class="btn btn-success me-3" style="font-size: 14px;">Add Recipe</a>
-                        </div>
+                        <h2>Archived Recipes</h2>
                         <div class="table-responsive px-3">
                             <table class="table table-striped table-hover">
                                 <thead>
@@ -50,7 +47,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($recipes['recipes'] as $recipe)
+                                    @foreach ($deletedRecipes['recipes'] as $recipe)
                                         <tr>
                                             <td>{{ $recipe->id }}</td>
                                             <td>{{ $recipe->name }}</td>
@@ -75,18 +72,13 @@
                                                     style="max-width: 100px;">
                                             </td>
                                             <td>
-                                                <div class="btn-group" role="group">
-                                                    <a href="/recipes/update/{{ $recipe->id }}" class="btn btn-sm me-1 btn-success">Edit</a>
-                                                    <form action="/recipes/{{ $recipe->id }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                                    </form>
-                                                </div>
+                                                <form action="/recipes/restore/{{ $recipe->id }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-success">Restore</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>
