@@ -134,9 +134,24 @@ class RecipeController extends Controller
         return redirect()->route('recipes.index')->with('success', 'Recipe updated successfully');
 
     }
+    public function destroy($id)
+    {
+        $this->registerRecipes->deleteRecipe($id);
+        return redirect()->route('recipes.index')->with('success', 'Recipe deleted successfully');
+    }
 
     public function settings()
     {
         return view('settings');
+    }
+    public function archive()
+    {
+        $deletedRecipes = $this->registerRecipes->findDeletedRecipes();
+        return view('recipes.archive', compact('deletedRecipes'));
+    }
+    public function restore($id)
+    {
+        $this->registerRecipes->restoreRecipe($id);
+        return redirect()->route('archive')->with('success', 'Recipe restored successfully');
     }
 }

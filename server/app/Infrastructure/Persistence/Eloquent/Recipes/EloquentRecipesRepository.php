@@ -195,7 +195,7 @@ class EloquentRecipesRepository implements RecipesRepository
   //blade business logic
   public function findAll(): array
   {
-    $recipes = RecipesModel::all();
+    $recipes = RecipesModel::where('isDeleted', false)->get();
 
     return [
       'recipes' => $recipes,
@@ -221,7 +221,6 @@ class EloquentRecipesRepository implements RecipesRepository
   public function update(Recipes $recipes): void
   {
     $recipeExist = RecipesModel::find($recipes->getId());
-    dd($recipeExist->name);
 
     if($recipeExist){
       $recipeExist->name = $recipes->getName();
@@ -248,5 +247,24 @@ class EloquentRecipesRepository implements RecipesRepository
       $recipeModel->updated_at = $recipes->getUpdated();
       $recipeModel->save();
     }
+  }
+  public function delete(int $id): void
+  {
+    $recipeExist = RecipesModel::find($id);
+    $recipeExist->isDeleted = true;
+    $recipeExist->save();
+  }
+  public function findDeleted(): array
+  {
+    $recipes = RecipesModel::where('isDeleted', true)->get();
+    return [
+      'recipes' => $recipes,
+    ];
+  }
+  public function restore(int $id): void
+  {
+    $recipeExist = RecipesModel::find($id);
+    $recipeExist->isDeleted = false;
+    $recipeExist->save();
   }
 }

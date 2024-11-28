@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->integer('prep_time')->nullable();
             $table->string('yt_link')->nullable();
             $table->string('image')->default('default.png');
+            $table->boolean('isDeleted')->default(false);
             $table->timestamps();
         });
     }
