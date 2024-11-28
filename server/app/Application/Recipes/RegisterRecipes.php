@@ -76,7 +76,31 @@ class RegisterRecipes
     );
     $this->recipesRepository->create($data);
   }
-  public function update()
-  {
+  public function update(
+    int $id,
+    string $name,
+    string $description,
+    string $category,
+    string $ingredients,
+    string $country,
+    int $prep_time,
+    string $yt_link,
+    string $image,
+    string $updated_at
+  ) {
+    $updateRecipes = new Recipes(
+      $id,
+      $name,
+      $description,
+      $category,
+      $ingredients,
+      $country,
+      $prep_time,
+      $yt_link,
+      $image,
+      null,
+      $updated_at
+    );
+    $this->recipesRepository->update($updateRecipes);
   }
 }

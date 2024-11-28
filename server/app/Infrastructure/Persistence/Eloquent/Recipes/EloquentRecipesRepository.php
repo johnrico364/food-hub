@@ -220,5 +220,33 @@ class EloquentRecipesRepository implements RecipesRepository
   }
   public function update(Recipes $recipes): void
   {
+    $recipeExist = RecipesModel::find($recipes->getId());
+    dd($recipeExist->name);
+
+    if($recipeExist){
+      $recipeExist->name = $recipes->getName();
+      $recipeExist->description = $recipes->getDescription();
+      $recipeExist->category = $recipes->getCategory();
+      $recipeExist->ingredients = $recipes->getIngredients();
+      $recipeExist->country = $recipes->getCountry();
+      $recipeExist->prep_time = $recipes->getPrepTime();
+      $recipeExist->yt_link = $recipes->getYtLink();
+      $recipeExist->image = $recipes->getImage();
+      $recipeExist->updated_at = $recipes->getUpdated();
+      $recipeExist->save();
+    }else{
+      $recipeModel = new RecipesModel();
+      $recipeModel->id = $recipes->getId();
+      $recipeModel->name = $recipes->getName();
+      $recipeModel->description = $recipes->getDescription();
+      $recipeModel->category = $recipes->getCategory();
+      $recipeModel->ingredients = $recipes->getIngredients();
+      $recipeModel->country = $recipes->getCountry();
+      $recipeModel->prep_time = $recipes->getPrepTime();
+      $recipeModel->yt_link = $recipes->getYtLink();
+      $recipeModel->image = $recipes->getImage();
+      $recipeModel->updated_at = $recipes->getUpdated();
+      $recipeModel->save();
+    }
   }
 }

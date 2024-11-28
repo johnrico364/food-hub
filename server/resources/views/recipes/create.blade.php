@@ -48,7 +48,7 @@
                                 <label for="ingredients" class="form-label">Ingredients</label>
                                 <span class="tip-text">
                                     <b>Tips: Provide space on each ingredient and capitalize each ingredient</b>
-                                    | Ex: Soy sauce,Pepper,Salt,Onion</span>
+                                    | Ex: Soy sauce, Pepper, Salt, Onion</span>
                                 <textarea class="form-control" id="ingredients" name="ingredients" rows="4" required></textarea>
                             </div>
                             <div class="mb-3">

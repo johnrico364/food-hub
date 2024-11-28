@@ -76,7 +76,7 @@
                                             </td>
                                             <td>
                                                 <div class="btn-group" role="group">
-                                                    <a href="#" class="btn btn-sm me-1 btn-success">Edit</a>
+                                                    <a href="/recipes/update/{{ $recipe->id }}" class="btn btn-sm me-1 btn-success">Edit</a>
                                                     <a href="#" class="btn btn-sm btn-danger">Delete</a>
                                                 </div>
                                             </td>

@@ -29,7 +29,7 @@
                 <a href="{{ route('recipes.index') }}" class="btn btn-success mb-3 navbar-button">Recipes</a>
             </div>
             <div class="d-flex flex-column">
-                <a href="{{ route('recipes.index') }}" class="btn btn-success mb-3 navbar-button">Settings</a>
+                <a href="{{ route('settings') }}" class="btn btn-success mb-3 navbar-button">Settings</a>
             </div>
         </div>
     </div>
