@@ -7,27 +7,6 @@ use App\Domain\Recipes\Recipes;
 
 class EloquentRecipesRepository implements RecipesRepository
 {
-  // Add Recipes
-  public function create(Recipes $recipes): void
-  {
-    $recipesModel = RecipesModel::find($recipes->getId()) ?? new RecipesModel();
-
-    $recipesModel->id = $recipes->getId();
-    $recipesModel->name = $recipes->getName();
-    $recipesModel->description = $recipes->getDescription();
-    $recipesModel->category = $recipes->getCategory();
-    $recipesModel->ingredients = $recipes->getIngredients();
-    $recipesModel->country = $recipes->getCountry();
-    $recipesModel->prep_time = $recipes->getPrepTime();
-    $recipesModel->yt_link = $recipes->getYtLink();
-    $recipesModel->image = $recipes->getImage();
-    $recipesModel->created_at = $recipes->getCreated();
-    $recipesModel->updated_at = $recipes->getUpdated();
-  }
-  public function update(Recipes $recipes): void
-  {
-  }
-
   // Find Recipes by category.
   public function findByCategory(string $category): array
   {
@@ -204,7 +183,6 @@ class EloquentRecipesRepository implements RecipesRepository
       'seafood' => $seafoodCount,
     ];
   }
-
   public function getAllRecipeCountry()
   {
     $countries = RecipesModel::select('country')->distinct()->get();
@@ -212,5 +190,81 @@ class EloquentRecipesRepository implements RecipesRepository
     return [
       'country' => $countries,
     ];
+  }
+
+  //blade business logic
+  public function findAll(): array
+  {
+    $recipes = RecipesModel::where('isDeleted', false)->get();
+
+    return [
+      'recipes' => $recipes,
+    ];
+  }
+  public function create(Recipes $recipes): void
+  {
+    $recipesModel = RecipesModel::find($recipes->getId()) ?? new RecipesModel();
+
+    $recipesModel->id = $recipes->getId();
+    $recipesModel->name = $recipes->getName();
+    $recipesModel->description = $recipes->getDescription();
+    $recipesModel->category = $recipes->getCategory();
+    $recipesModel->ingredients = $recipes->getIngredients();
+    $recipesModel->country = $recipes->getCountry();
+    $recipesModel->prep_time = $recipes->getPrepTime();
+    $recipesModel->yt_link = $recipes->getYtLink();
+    $recipesModel->image = $recipes->getImage();
+    $recipesModel->created_at = $recipes->getCreated();
+    $recipesModel->updated_at = $recipes->getUpdated();
+    $recipesModel->save();
+  }
+  public function update(Recipes $recipes): void
+  {
+    $recipeExist = RecipesModel::find($recipes->getId());
+
+    if($recipeExist){
+      $recipeExist->name = $recipes->getName();
+      $recipeExist->description = $recipes->getDescription();
+      $recipeExist->category = $recipes->getCategory();
+      $recipeExist->ingredients = $recipes->getIngredients();
+      $recipeExist->country = $recipes->getCountry();
+      $recipeExist->prep_time = $recipes->getPrepTime();
+      $recipeExist->yt_link = $recipes->getYtLink();
+      $recipeExist->image = $recipes->getImage();
+      $recipeExist->updated_at = $recipes->getUpdated();
+      $recipeExist->save();
+    }else{
+      $recipeModel = new RecipesModel();
+      $recipeModel->id = $recipes->getId();
+      $recipeModel->name = $recipes->getName();
+      $recipeModel->description = $recipes->getDescription();
+      $recipeModel->category = $recipes->getCategory();
+      $recipeModel->ingredients = $recipes->getIngredients();
+      $recipeModel->country = $recipes->getCountry();
+      $recipeModel->prep_time = $recipes->getPrepTime();
+      $recipeModel->yt_link = $recipes->getYtLink();
+      $recipeModel->image = $recipes->getImage();
+      $recipeModel->updated_at = $recipes->getUpdated();
+      $recipeModel->save();
+    }
+  }
+  public function delete(int $id): void
+  {
+    $recipeExist = RecipesModel::find($id);
+    $recipeExist->isDeleted = true;
+    $recipeExist->save();
+  }
+  public function findDeleted(): array
+  {
+    $recipes = RecipesModel::where('isDeleted', true)->get();
+    return [
+      'recipes' => $recipes,
+    ];
+  }
+  public function restore(int $id): void
+  {
+    $recipeExist = RecipesModel::find($id);
+    $recipeExist->isDeleted = false;
+    $recipeExist->save();
   }
 }
