@@ -15,5 +15,8 @@ interface RecipesRepository
   public function findAll() : array;
   public function create(Recipes $recipes): void;
   public function update(Recipes $recipes): void;
-
+  public function delete(int $id): void;
+  public function findDeleted(): array;
+  public function restore(int $id): void;
+  
 }

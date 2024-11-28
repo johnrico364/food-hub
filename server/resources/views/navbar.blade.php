@@ -31,6 +31,9 @@
             <div class="d-flex flex-column">
                 <a href="{{ route('settings') }}" class="btn btn-success mb-3 navbar-button">Settings</a>
             </div>
+            <div class="d-flex flex-column">
+                <a href="{{ route('archive') }}" class="btn btn-success mb-3 navbar-button">Archive</a>
+            </div>
         </div>
     </div>
 
