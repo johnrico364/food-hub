@@ -12,9 +12,9 @@ class EloquentRecipesRepository implements RecipesRepository
   {
     $matchRecipes = null;
     if ($category == 'All') {
-      $matchRecipes = RecipesModel::all();
+      $matchRecipes = RecipesModel::where('isDeleted', false)->get();
     } else {
-      $matchRecipes = RecipesModel::where('category', 'LIKE', "%{$category}%")->get();
+      $matchRecipes = RecipesModel::where('category', 'LIKE', "%{$category}%")->where('isDeleted', false)->get();
     }
 
     return $matchRecipes->map(function ($recipe) {
@@ -28,6 +28,7 @@ class EloquentRecipesRepository implements RecipesRepository
         $recipe->prep_time,
         $recipe->yt_link,
         $recipe->image,
+        $recipe->isDeleted,
         $recipe->created_at,
         $recipe->updated_at
       );
@@ -42,7 +43,6 @@ class EloquentRecipesRepository implements RecipesRepository
     if (!$recipe) {
       return null;
     }
-
     return new Recipes(
       $recipe->id,
       $recipe->name,
@@ -53,6 +53,7 @@ class EloquentRecipesRepository implements RecipesRepository
       $recipe->prep_time,
       $recipe->yt_link,
       $recipe->image,
+      $recipe->isDeleted,
       $recipe->created_at,
       $recipe->updated_at
     );
@@ -63,17 +64,21 @@ class EloquentRecipesRepository implements RecipesRepository
       ->orWhere('description', $searchTerm)
       ->orWhere('category', $searchTerm)
       ->orWhere('country', $searchTerm)
-      ->orWhere('ingredients', $searchTerm)->first();
+      ->orWhere('ingredients', $searchTerm)
+      ->where('isDeleted', false)
+      ->first();
 
-    $relatedMatch = RecipesModel::where('id', '!=', $exactMatch?->id)->where(
-      function ($query) use ($searchTerm) {
-        $query->where('name', 'LIKE', "%{$searchTerm}%")
-          ->orWhere('description', 'LIKE', "%{$searchTerm}%")
-          ->orWhere('category', 'LIKE', "%{$searchTerm}%")
-          ->orWhere('country', 'LIKE', "%{$searchTerm}%")
-          ->orWhere('ingredients', 'LIKE', "%{$searchTerm}%");
-      }
-    )->get();
+    $relatedMatch = RecipesModel::where('id', '!=', $exactMatch?->id)
+      ->where('isDeleted', false)
+      ->where(
+        function ($query) use ($searchTerm) {
+          $query->where('name', 'LIKE', "%{$searchTerm}%")
+            ->orWhere('description', 'LIKE', "%{$searchTerm}%")
+            ->orWhere('category', 'LIKE', "%{$searchTerm}%")
+            ->orWhere('country', 'LIKE', "%{$searchTerm}%")
+            ->orWhere('ingredients', 'LIKE', "%{$searchTerm}%");
+        }
+      )->get();
 
     return [
       'exact_match' => $exactMatch ? new Recipes(
@@ -86,6 +91,7 @@ class EloquentRecipesRepository implements RecipesRepository
         $exactMatch->prep_time,
         $exactMatch->yt_link,
         $exactMatch->image,
+        $exactMatch->isDeleted,
         $exactMatch->created_at,
         $exactMatch->updated_at
       ) : null,
@@ -100,6 +106,7 @@ class EloquentRecipesRepository implements RecipesRepository
           $recipes->prep_time,
           $recipes->yt_link,
           $recipes->image,
+          $recipes->isDeleted,
           $recipes->created_at,
           $recipes->updated_at
         );
@@ -109,17 +116,17 @@ class EloquentRecipesRepository implements RecipesRepository
 
   public function getAllCategoryCounts()
   {
-    $allCount = RecipesModel::all()->count();
-    $mainCourseCount = RecipesModel::where('category', 'LIKE', '%Main course%')->count();
-    $breakfastCount = RecipesModel::where('category', 'LIKE', '%Breakfast%')->count();
-    $soupsCount = RecipesModel::where('category', 'LIKE', '%Soups%')->count();
-    $pastaCount = RecipesModel::where('category', 'LIKE', '%Pasta%')->count();
-    $dessertsCount = RecipesModel::where('category', 'LIKE', '%Desserts%')->count();
-    $saladCount = RecipesModel::where('category', 'LIKE', '%Salad%')->count();
-    $bakedCount = RecipesModel::where('category', 'LIKE', '%Baked%')->count();
-    $snacksCount = RecipesModel::where('category', 'LIKE', '%Snacks%')->count();
-    $appetizersCount = RecipesModel::where('category', 'LIKE', '%Appetizers%')->count();
-    $seafoodCount = RecipesModel::where('category', 'LIKE', '%Seafood%')->count();
+    $allCount = RecipesModel::where('isDeleted', false)->count();
+    $mainCourseCount = RecipesModel::where('category', 'LIKE', '%Main course%')->where('isDeleted', false)->count();
+    $breakfastCount = RecipesModel::where('category', 'LIKE', '%Breakfast%')->where('isDeleted', false)->count();
+    $soupsCount = RecipesModel::where('category', 'LIKE', '%Soups%')->where('isDeleted', false)->count();
+    $pastaCount = RecipesModel::where('category', 'LIKE', '%Pasta%')->where('isDeleted', false)->count();
+    $dessertsCount = RecipesModel::where('category', 'LIKE', '%Desserts%')->where('isDeleted', false)->count();
+    $saladCount = RecipesModel::where('category', 'LIKE', '%Salad%')->where('isDeleted', false)->count();
+    $bakedCount = RecipesModel::where('category', 'LIKE', '%Baked%')->where('isDeleted', false)->count();
+    $snacksCount = RecipesModel::where('category', 'LIKE', '%Snacks%')->where('isDeleted', false)->count();
+    $appetizersCount = RecipesModel::where('category', 'LIKE', '%Appetizers%')->where('isDeleted', false)->count();
+    $seafoodCount = RecipesModel::where('category', 'LIKE', '%Seafood%')->where('isDeleted', false)->count();
 
     return [
       'all' => $allCount,
@@ -137,36 +144,46 @@ class EloquentRecipesRepository implements RecipesRepository
   }
   public function getAllCategoryCountsByCountry(string $countryName)
   {
-    $allCount = RecipesModel::where('country', $countryName)->count();
+    $allCount = RecipesModel::where('country', $countryName)->where('isDeleted', false)->count();
     $mainCourseCount = RecipesModel::where('country', $countryName)
       ->where('category', 'LIKE', '%Main course%')
+      ->where('isDeleted', false)
       ->count();
     $breakfastCount = RecipesModel::where('country', $countryName)
       ->where('category', 'LIKE', '%Breakfast%')
+      ->where('isDeleted', false)
       ->count();
     $soupsCount = RecipesModel::where('country', $countryName)
       ->where('category', 'LIKE', '%Soups%')
+      ->where('isDeleted', false)
       ->count();
     $pastaCount = RecipesModel::where('country', $countryName)
       ->where('category', 'LIKE', '%Pasta%')
+      ->where('isDeleted', false)
       ->count();
     $dessertsCount = RecipesModel::where('country', $countryName)
       ->where('category', 'LIKE', '%Desserts%')
+      ->where('isDeleted', false)
       ->count();
     $saladCount = RecipesModel::where('country', $countryName)
       ->where('category', 'LIKE', '%Salad%')
+      ->where('isDeleted', false)
       ->count();
     $bakedCount = RecipesModel::where('country', $countryName)
       ->where('category', 'LIKE', '%Baked%')
+      ->where('isDeleted', false)
       ->count();
     $snacksCount = RecipesModel::where('country', $countryName)
       ->where('category', 'LIKE', '%Snacks%')
+      ->where('isDeleted', false)
       ->count();
     $appetizersCount = RecipesModel::where('country', $countryName)
       ->where('category', 'LIKE', '%Appetizers%')
+      ->where('isDeleted', false)
       ->count();
     $seafoodCount = RecipesModel::where('country', $countryName)
       ->where('category', 'LIKE', '%Seafood%')
+      ->where('isDeleted', false)
       ->count();
 
     return [
@@ -222,7 +239,7 @@ class EloquentRecipesRepository implements RecipesRepository
   {
     $recipeExist = RecipesModel::find($recipes->getId());
 
-    if($recipeExist){
+    if ($recipeExist) {
       $recipeExist->name = $recipes->getName();
       $recipeExist->description = $recipes->getDescription();
       $recipeExist->category = $recipes->getCategory();
@@ -233,7 +250,7 @@ class EloquentRecipesRepository implements RecipesRepository
       $recipeExist->image = $recipes->getImage();
       $recipeExist->updated_at = $recipes->getUpdated();
       $recipeExist->save();
-    }else{
+    } else {
       $recipeModel = new RecipesModel();
       $recipeModel->id = $recipes->getId();
       $recipeModel->name = $recipes->getName();

@@ -13,6 +13,7 @@ class Recipes
   private ?int $prep_time;
   private ?string $yt_link;
   private ?string $image;
+  private ?bool $isDeleted;
   private ?string $created_at;
   private ?string $updated_at;
 
@@ -26,8 +27,9 @@ class Recipes
     ?int $prep_time = null,
     ?string $yt_link = null,
     ?string $image = null,
+    ?bool $isDeleted = false,
     ?string $created_at = null,
-    ?string $updated_at = null
+    ?string $updated_at = null,
   ) {
     $this->id = $id;
     $this->name = $name;
@@ -38,6 +40,7 @@ class Recipes
     $this->prep_time = $prep_time;
     $this->yt_link = $yt_link;
     $this->image = $image;
+    $this->isDeleted = $isDeleted;
     $this->created_at = $created_at;
     $this->updated_at = $updated_at;
   }
@@ -54,8 +57,9 @@ class Recipes
       'prep_time' => $this->prep_time,
       'yt_link' => $this->yt_link,
       'image' => $this->image,
+      'isDeleted' => $this->isDeleted,
       'created_at' => $this->created_at,
-      'updated_at' => $this->updated_at
+      'updated_at' => $this->updated_at,
     ];
   }
 
@@ -94,6 +98,10 @@ class Recipes
   public function getImage()
   {
     return $this->image;
+  }
+  public function getIsDeleted()
+  {
+    return $this->isDeleted;
   }
   public function getCreated()
   {
