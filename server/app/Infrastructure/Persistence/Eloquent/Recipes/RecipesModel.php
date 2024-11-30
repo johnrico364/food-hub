@@ -19,6 +19,7 @@ class RecipesModel extends Model
     'prep_time',
     'yt_link',
     'image',
+    'isDeleted',
     'created_at',
     'updated_at'
   ];
