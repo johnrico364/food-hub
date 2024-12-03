@@ -279,7 +279,7 @@ body {
 
   .category-container {
     display: flex;
-    @apply mt-[5.5rem] w-full overflow-x-auto;
+    @apply mt-[5.5rem] pb-3 w-full overflow-x-auto;
   }
 
   .recipe-container {

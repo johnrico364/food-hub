@@ -4,6 +4,7 @@ namespace App\Infrastructure\Persistence\Eloquent\Recipes;
 
 use App\Domain\Recipes\RecipesRepository;
 use App\Domain\Recipes\Recipes;
+use App\Infrastructure\Persistence\Eloquent\Categories\CategoriesModel;
 
 class EloquentRecipesRepository implements RecipesRepository
 {
@@ -116,89 +117,46 @@ class EloquentRecipesRepository implements RecipesRepository
 
   public function getAllCategoryCounts()
   {
-    $allCount = RecipesModel::where('isDeleted', false)->count();
-    $mainCourseCount = RecipesModel::where('category', 'LIKE', '%Main course%')->where('isDeleted', false)->count();
-    $breakfastCount = RecipesModel::where('category', 'LIKE', '%Breakfast%')->where('isDeleted', false)->count();
-    $soupsCount = RecipesModel::where('category', 'LIKE', '%Soups%')->where('isDeleted', false)->count();
-    $pastaCount = RecipesModel::where('category', 'LIKE', '%Pasta%')->where('isDeleted', false)->count();
-    $dessertsCount = RecipesModel::where('category', 'LIKE', '%Desserts%')->where('isDeleted', false)->count();
-    $saladCount = RecipesModel::where('category', 'LIKE', '%Salad%')->where('isDeleted', false)->count();
-    $bakedCount = RecipesModel::where('category', 'LIKE', '%Baked%')->where('isDeleted', false)->count();
-    $snacksCount = RecipesModel::where('category', 'LIKE', '%Snacks%')->where('isDeleted', false)->count();
-    $appetizersCount = RecipesModel::where('category', 'LIKE', '%Appetizers%')->where('isDeleted', false)->count();
-    $seafoodCount = RecipesModel::where('category', 'LIKE', '%Seafood%')->where('isDeleted', false)->count();
+    $categories = CategoriesModel::where('isShow', true)->get();
+    $categoryCounts = [];
 
-    return [
-      'all' => $allCount,
-      'main_course' => $mainCourseCount,
-      'breakfast' => $breakfastCount,
-      'soups' => $soupsCount,
-      'pasta' => $pastaCount,
-      'desserts' => $dessertsCount,
-      'salad' => $saladCount,
-      'baked' => $bakedCount,
-      'snacks' => $snacksCount,
-      'appetizers' => $appetizersCount,
-      'seafood' => $seafoodCount,
-    ];
+    foreach ($categories as $category) {
+      $count = $category->name === 'All'
+        ? RecipesModel::where('isDeleted', false)->count()
+        : RecipesModel::where('category', 'LIKE', "%{$category->name}%")
+          ->where('isDeleted', false)
+          ->count();
+
+      $categoryCounts[] = [
+        'count' => $count,
+        'category' => $category->name,
+        'icon' => $category->icon,
+      ];
+    }
+
+    return $categoryCounts;
   }
   public function getAllCategoryCountsByCountry(string $countryName)
   {
-    $allCount = RecipesModel::where('country', $countryName)->where('isDeleted', false)->count();
-    $mainCourseCount = RecipesModel::where('country', $countryName)
-      ->where('category', 'LIKE', '%Main course%')
-      ->where('isDeleted', false)
-      ->count();
-    $breakfastCount = RecipesModel::where('country', $countryName)
-      ->where('category', 'LIKE', '%Breakfast%')
-      ->where('isDeleted', false)
-      ->count();
-    $soupsCount = RecipesModel::where('country', $countryName)
-      ->where('category', 'LIKE', '%Soups%')
-      ->where('isDeleted', false)
-      ->count();
-    $pastaCount = RecipesModel::where('country', $countryName)
-      ->where('category', 'LIKE', '%Pasta%')
-      ->where('isDeleted', false)
-      ->count();
-    $dessertsCount = RecipesModel::where('country', $countryName)
-      ->where('category', 'LIKE', '%Desserts%')
-      ->where('isDeleted', false)
-      ->count();
-    $saladCount = RecipesModel::where('country', $countryName)
-      ->where('category', 'LIKE', '%Salad%')
-      ->where('isDeleted', false)
-      ->count();
-    $bakedCount = RecipesModel::where('country', $countryName)
-      ->where('category', 'LIKE', '%Baked%')
-      ->where('isDeleted', false)
-      ->count();
-    $snacksCount = RecipesModel::where('country', $countryName)
-      ->where('category', 'LIKE', '%Snacks%')
-      ->where('isDeleted', false)
-      ->count();
-    $appetizersCount = RecipesModel::where('country', $countryName)
-      ->where('category', 'LIKE', '%Appetizers%')
-      ->where('isDeleted', false)
-      ->count();
-    $seafoodCount = RecipesModel::where('country', $countryName)
-      ->where('category', 'LIKE', '%Seafood%')
-      ->where('isDeleted', false)
-      ->count();
+    $categories = CategoriesModel::where('isShow', true)->get();
+    $categoryCounts = [];
 
-    return [
-      'all' => $allCount,
-      'main_course' => $mainCourseCount,
-      'breakfast' => $breakfastCount,
-      'soups' => $soupsCount,
-      'pasta' => $pastaCount,
-      'desserts' => $dessertsCount,
-      'salad' => $saladCount,
-      'baked' => $bakedCount,
-      'snacks' => $snacksCount,
-      'appetizers' => $appetizersCount,
-      'seafood' => $seafoodCount,
-    ];
+    foreach ($categories as $category) {
+      $count = $category->name === 'All'
+        ? RecipesModel::where('country', $countryName)->where('isDeleted', false)->count()
+        : RecipesModel::where('country', $countryName)
+          ->where('category', 'LIKE', "%{$category->name}%")
+          ->where('isDeleted', false)
+          ->count();
+
+      $categoryCounts[] = [
+        'count' => $count,
+        'category' => $category->name,
+        'icon' => $category->icon,
+      ];
+    }
+
+    return $categoryCounts;
   }
   public function getAllRecipeCountry()
   {
@@ -209,7 +167,7 @@ class EloquentRecipesRepository implements RecipesRepository
     ];
   }
 
-  //blade business logic
+  //====================================== BLADE BUSINESS LOGIC ======================================
   public function findAll(): array
   {
     $recipes = RecipesModel::where('isDeleted', false)->get();
@@ -283,5 +241,16 @@ class EloquentRecipesRepository implements RecipesRepository
     $recipeExist = RecipesModel::find($id);
     $recipeExist->isDeleted = false;
     $recipeExist->save();
+  }
+  public function findAllCategory()
+  {
+    $categories = CategoriesModel::all();
+    return $categories;
+  }
+  public function updateShowCategory(int $id): void
+  {
+    $category = CategoriesModel::find($id);
+    $category->isShow = !$category->isShow;
+    $category->save();
   }
 }
