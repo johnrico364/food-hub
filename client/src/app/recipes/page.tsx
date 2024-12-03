@@ -6,10 +6,17 @@ import { CategoryBox } from "@/components/category-box";
 import { RecipeBox } from "@/components/recipe-box";
 // Hooks
 import { useGetRecipes } from "@/hooks/useGetRecipes";
-import { categories } from "@/hooks/categories";
+// import { categories } from "@/hooks/categories";
 import { useSearchRecipes } from "@/hooks/useSearchRecipes";
 // Icons
 import { IoSearch } from "react-icons/io5";
+import { AiOutlineAppstoreAdd } from "react-icons/ai";
+import { CiBowlNoodles } from "react-icons/ci";
+import { IoFishOutline, IoRestaurantOutline } from "react-icons/io5";
+import { LiaMugHotSolid } from "react-icons/lia";
+import { LuIceCream2, LuPopcorn, LuSalad, LuSoup } from "react-icons/lu";
+import { MdOutlineBakeryDining } from "react-icons/md";
+import { BiBowlRice } from "react-icons/bi";
 
 type RecipeProps = {
   id: number;
@@ -18,11 +25,32 @@ type RecipeProps = {
   image: string;
 };
 
+type CategoryProps = {
+  category: string;
+  count: number;
+  icon: string;
+};
+
+const iconComponents = {
+  'AiOutlineAppstoreAdd': AiOutlineAppstoreAdd,
+  'CiBowlNoodles': CiBowlNoodles,
+  'IoFishOutline': IoFishOutline,
+  'IoRestaurantOutline': IoRestaurantOutline,
+  'LiaMugHotSolid': LiaMugHotSolid,
+  'LuIceCream2': LuIceCream2,
+  'LuPopcorn': LuPopcorn,
+  'LuSalad': LuSalad,
+  'LuSoup': LuSoup,
+  'MdOutlineBakeryDining': MdOutlineBakeryDining,
+  'BiBowlRice': BiBowlRice,
+};
+
 export default function Recipes() {
   const { getRecipesByCategory, getRecipesCount } = useGetRecipes();
   const { searchRecipes } = useSearchRecipes();
 
   const [recipes, set_recipes] = useState([]);
+  const [categories, set_categories] = useState<CategoryProps[]>([]);
   const [searchTerm, set_searchTerm] = useState("");
   const [isSearching, set_isSearching] = useState(false);
   const [categoryType, set_categoryType] = useState("All");
@@ -66,12 +94,12 @@ export default function Recipes() {
     const recipesData = await getRecipesByCategory(categoryType);
     const categoryCount = await getRecipesCount();
     set_recipes(recipesData);
-
-    let categoryIndex = 0;
-    for (const key in categoryCount) {
-      categories[categoryIndex].items = categoryCount[key];
-      categoryIndex++;
-    }
+    set_categories(categoryCount);
+    // let categoryIndex = 0;
+    // for (const key in categoryCount) {
+    //   categories[categoryIndex].items = categoryCount[key];
+    //   categoryIndex++;
+    // }
   };
 
   useEffect(() => {
@@ -94,15 +122,16 @@ export default function Recipes() {
         />
       </form>
 
-      <div className="category-container ">
+      <div className="category-container">
         {categories?.map((category, i) => {
+          const IconComponent = iconComponents[category.icon as keyof typeof iconComponents];
           return (
-            <div key={i} onClick={() => set_categoryType(category.name)}>
+            <div key={i} onClick={() => set_categoryType(category.category)}>
               <CategoryBox
-                icon={category.icon}
-                name={category.name}
-                items={category.items}
-                isActive={category.name === categoryType}
+                icon={IconComponent}
+                name={category.category}
+                items={category.count}
+                isActive={category.category === categoryType}
               />
             </div>
           );

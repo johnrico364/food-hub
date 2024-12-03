@@ -116,4 +116,12 @@ class RegisterRecipes
   {
     $this->recipesRepository->restore($id);
   }
+  public function findAllCategory()
+  {
+    return $this->recipesRepository->findAllCategory();
+  }
+  public function updateShowCategory(int $id)
+  {
+    $this->recipesRepository->updateShowCategory($id);
+  }
 }
