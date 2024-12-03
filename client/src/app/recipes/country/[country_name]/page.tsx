@@ -7,7 +7,16 @@ import { CategoryBox } from "@/components/category-box";
 import { RecipeBox } from "@/components/recipe-box";
 // Hooks
 import { useGetRecipes } from "@/hooks/useGetRecipes";
-import { categories } from "@/hooks/categories";
+// import { categories } from "@/hooks/categories";
+
+// Icons
+import { AiOutlineAppstoreAdd } from "react-icons/ai";
+import { CiBowlNoodles } from "react-icons/ci";
+import { IoFishOutline, IoRestaurantOutline } from "react-icons/io5";
+import { LiaMugHotSolid } from "react-icons/lia";
+import { LuIceCream2, LuPopcorn, LuSalad, LuSoup } from "react-icons/lu";
+import { MdOutlineBakeryDining } from "react-icons/md";
+import { BiBowlRice } from "react-icons/bi";
 
 type Props = {
   params: {
@@ -22,10 +31,31 @@ type RecipeProps = {
   image: string;
 };
 
+type CategoryProps = {
+  category: string;
+  count: number;
+  icon: string;
+};
+
+const iconComponents = {
+  'AiOutlineAppstoreAdd': AiOutlineAppstoreAdd,
+  'CiBowlNoodles': CiBowlNoodles,
+  'IoFishOutline': IoFishOutline,
+  'IoRestaurantOutline': IoRestaurantOutline,
+  'LiaMugHotSolid': LiaMugHotSolid,
+  'LuIceCream2': LuIceCream2,
+  'LuPopcorn': LuPopcorn,
+  'LuSalad': LuSalad,
+  'LuSoup': LuSoup,
+  'MdOutlineBakeryDining': MdOutlineBakeryDining,
+  'BiBowlRice': BiBowlRice,
+};
+
 export default function Country({ params }: Props) {
   const { getRecipesByCountry, getRecipeCountbyCountry } = useGetRecipes();
 
   const [recipes, set_recipes] = useState([]);
+  const [categories, set_categories] = useState<CategoryProps[]>([]);
   const [categoryType, set_categoryType] = useState("All");
   const [pageNumber, set_pageNumber] = useState(0);
 
@@ -49,12 +79,13 @@ export default function Country({ params }: Props) {
     );
     const categoryCount = await getRecipeCountbyCountry(params.country_name);
     set_recipes(recipesData);
+    set_categories(categoryCount);
 
-    let categoryIndex = 0;
-    for (const key in categoryCount) {
-      categories[categoryIndex].items = categoryCount[key];
-      categoryIndex++;
-    }
+    // let categoryIndex = 0;
+    // for (const key in categoryCount) {
+    //   categories[categoryIndex].items = categoryCount[key];
+    //   categoryIndex++;
+    // }
   };
 
   useEffect(() => {
@@ -63,15 +94,16 @@ export default function Country({ params }: Props) {
 
   return (
     <div className="recipe-country-section">
-      <div className="category-container ">
+      <div className="category-container">
         {categories?.map((category, i) => {
+          const IconComponent = iconComponents[category.icon as keyof typeof iconComponents];
           return (
-            <div key={i} onClick={() => set_categoryType(category.name)}>
+            <div key={i} onClick={() => set_categoryType(category.category)}>
               <CategoryBox
-                icon={category.icon}
-                name={category.name}
-                items={category.items}
-                isActive={category.name === categoryType}
+                icon={IconComponent}
+                name={category.category}
+                items={category.count}
+                isActive={category.category === categoryType}
               />
             </div>
           );

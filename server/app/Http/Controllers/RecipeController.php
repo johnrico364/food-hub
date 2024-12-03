@@ -142,7 +142,13 @@ class RecipeController extends Controller
 
     public function settings()
     {
-        return view('settings');
+        $categories = $this->registerRecipes->findAllCategory();
+        return view('settings', compact('categories'));
+    }
+    public function updateShowCategory($id)
+    {
+        $this->registerRecipes->updateShowCategory($id);
+        return redirect()->route('settings')->with('success', 'Category updated successfully');
     }
     public function archive()
     {
