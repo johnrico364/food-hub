@@ -23,7 +23,8 @@
                     @foreach ($categories as $category)
                         <form action="/category/update/{{ $category->id }}" method="POST">
                             @csrf
-                            <button class="rounded-pill me-2 btn {{ $category->isShow ? 'btn-success' : 'btn-secondary' }}"
+                            <button
+                                class="rounded-pill me-2 btn {{ $category->isShow ? 'btn-success' : 'btn-secondary' }}"
                                 style="cursor: pointer;">
                                 {{ $category->name }}
                             </button>
@@ -37,6 +38,10 @@
                     <p class="fs-4"><strong>Email:</strong> <span class="text-secondary">admin@gmail.com</span></p>
                 </div>
                 <button type="button" class="btn btn-success mb-3" id="showFormBtn">Edit Profile</button>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-success mb-3">Logout</button>
+                </form>
 
                 <form method="POST" action="" class="col-md-6" id="profileForm" style="display: none;">
                     @csrf
@@ -64,6 +69,27 @@
 </body>
 
 <script>
+    // document.getElementById('logout').addEventListener('click', function() {
+    //     fetch('{{ route('logout') }}', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    //             },
+    //             body: JSON.stringify({
+    //                 // Add any data you want to send here
+    //                 key: 'value'
+    //             })
+    //         })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             console.log('Success:', data);
+    //         })
+    //         .catch((error) => {
+    //             console.error('Error:', error);
+    //         });
+    // });
+
     document.getElementById('showFormBtn').addEventListener('click', function() {
         document.getElementById('profileForm').style.display = 'block';
         document.getElementById('adminDetails').style.display = 'none';

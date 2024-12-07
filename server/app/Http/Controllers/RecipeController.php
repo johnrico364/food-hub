@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use App\Infrastructure\Persistence\Eloquent\Recipes\RecipesModel;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class RecipeController extends Controller
 {
@@ -17,6 +19,34 @@ class RecipeController extends Controller
     {
         $this->registerRecipes = $registerRecipes;
     }
+    public function login()
+    {
+        return view('login');
+    }
+    public function validateLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        $credential = $request->only('email', 'password');
+
+        if (Auth::attempt($credential)) {
+            return redirect('recipes')->with('message', 'Login Complete...');
+        }
+
+        return redirect('/')->with('message', 'Login Failed...');
+    }
+    public function logout()
+    {
+        // dd("ok");
+
+        Session::flush();
+        Auth::logout();
+        return redirect('/');
+    }
+
     public function index()
     {
         $recipes = $this->registerRecipes->findAllRecipes();
