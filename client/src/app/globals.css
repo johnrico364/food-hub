@@ -316,3 +316,26 @@ body {
     }
   }
 }
+
+/* ====== "/recipes/ingredients-search" ====== */
+.ingredients-search-section {
+  @apply lg:mx-[3rem] mx-8;
+
+  .search-input {
+    @apply h-11 mt-5 w-6/12 rounded-md;
+    font-weight: 600;
+    letter-spacing: 1px;
+    &:focus {
+      outline: none !important;
+    }
+  }
+  .add-btn {
+    @apply h-11 mt-5 ml-3 w-1/12 text-white rounded-[1rem] font-semibold;
+    background-color: var(--green);
+  }
+
+  .recipe-container {
+    @apply grid mt-4 gap-3 overflow-auto;
+    @apply 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2;
+  }
+}

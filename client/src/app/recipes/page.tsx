@@ -95,11 +95,6 @@ export default function Recipes() {
     const categoryCount = await getRecipesCount();
     set_recipes(recipesData);
     set_categories(categoryCount);
-    // let categoryIndex = 0;
-    // for (const key in categoryCount) {
-    //   categories[categoryIndex].items = categoryCount[key];
-    //   categoryIndex++;
-    // }
   };
 
   useEffect(() => {

@@ -166,6 +166,19 @@ class EloquentRecipesRepository implements RecipesRepository
       'country' => $countries,
     ];
   }
+  public function ingredientsSearch(array $ingredients): array
+  {
+    $recipes = [];
+    foreach ($ingredients as $ingredient) {
+      $matchingRecipes = RecipesModel::where('ingredients', 'LIKE', "%{$ingredient}%")->get()->toArray();
+      foreach ($matchingRecipes as $recipe) {
+        if (!in_array($recipe, $recipes)) {
+          $recipes[] = $recipe;
+        }
+      }
+    }
+    return $recipes;
+  }
 
   //====================================== BLADE BUSINESS LOGIC ======================================
   public function findAll(): array
