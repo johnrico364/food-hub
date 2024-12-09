@@ -9,6 +9,7 @@ import { PiHouseLight } from "react-icons/pi";
 import { BiWorld } from "react-icons/bi";
 import { usePathname } from "next/navigation";
 import { useGetRecipes } from "@/hooks/useGetRecipes";
+import { IoSearch } from "react-icons/io5";
 
 type Props = {
   children: React.ReactNode;
@@ -67,6 +68,20 @@ export default function RecipesLayout({ children }: Props) {
               </span>
               Country
             </div>
+
+            <Link
+              href={"/recipes/ingredients-search"}
+              className={
+                pathname === "/recipes/ingredients-search"
+                  ? "nav-link-active"
+                  : "nav-link"
+              }
+            >
+              <span>
+                <IoSearch className="nav-icons" />
+              </span>
+              Ingredient Search
+            </Link>
             <ul className={showCountries ? "pl-3 cursor-pointer" : "hidden"}>
               {countries?.map((c: { country: string }, i) => {
                 return (

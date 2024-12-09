@@ -124,4 +124,8 @@ class RegisterRecipes
   {
     $this->recipesRepository->updateShowCategory($id);
   }
+  public function ingredientsSearch(array $ingredients)
+  {
+    return $this->recipesRepository->ingredientsSearch($ingredients);
+  }
 }

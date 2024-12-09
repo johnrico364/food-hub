@@ -29,5 +29,18 @@ export const useSearchRecipes = () => {
     }
   };
 
-  return { searchRecipes };
+  const ingredientsSearch = async (ingredients: string[]) => {
+    try {
+      const data = await axios.get(
+        "http://127.0.0.1:8000/api/ingredients_search",
+        {
+          params: { ingredients },
+        }
+      );
+      return data?.data?.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return { searchRecipes, ingredientsSearch };
 };
