@@ -29,6 +29,21 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/favicon.ico
+    - assets/images/ingredients/bayleaves.jpg
+    - assets/images/ingredients/BlackPepper.jpg
+    - assets/images/ingredients/Coconut Milk.jpg
+    - assets/images/ingredients/crushed garlic.jpg
+    - assets/images/ingredients/Egg.jpg
+    - assets/images/ingredients/eggplants.jpg
+    - assets/images/ingredients/onion.jpg
+    - assets/images/ingredients/pepper.jpg
+    - assets/images/ingredients/peppercorns.jpg
+    - assets/images/ingredients/pork belly.jpg
+    - assets/images/ingredients/radishes.jpg
+    - assets/images/utils/logo.png
+    - assets/images/utils/landing-motto.png
+    - assets/images/utils/landing-bg-recipe.png
+    - assets/images/utils/landing-bg.png
   fonts:
     - family: Poppins
       fonts:
