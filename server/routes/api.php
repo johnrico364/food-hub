@@ -15,3 +15,4 @@ Route::get('/country_list', [APIController::class, 'getRecipeCountries']);//done
 Route::get('/image/{filename}', function ($filename) {
   return response()->file(public_path('images/' . $filename));
 }); //done
+Route::get('/ingredients_search', [APIController::class, 'ingredientsSearch']); //done

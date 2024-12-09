@@ -69,6 +69,12 @@ class APIController extends Controller
 
     return response()->json(['data' => $recipeCountries]);
   }
+  public function ingredientsSearch(Request $request)
+  {
+    $ingredients = $request->input('ingredients');
+    $result = $this->registerRecipes->ingredientsSearch($ingredients);
+    return response()->json(['data' => $result]);
+  }
 }
 
 

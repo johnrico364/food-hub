@@ -20,4 +20,5 @@ interface RecipesRepository
   public function restore(int $id): void;
   public function findAllCategory();
   public function updateShowCategory(int $id): void;
+  public function ingredientsSearch(array $ingredients): array;
 }
