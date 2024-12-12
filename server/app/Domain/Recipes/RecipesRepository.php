@@ -10,6 +10,7 @@ interface RecipesRepository
   public function getAllCategoryCounts();
   public function getAllCategoryCountsByCountry(string $countryName);
   public function getAllRecipeCountry();
+  public function ingredientsSearch(array $ingredients): array;
 
   //blade business logic
   public function findAll() : array;
@@ -20,5 +21,5 @@ interface RecipesRepository
   public function restore(int $id): void;
   public function findAllCategory();
   public function updateShowCategory(int $id): void;
-  public function ingredientsSearch(array $ingredients): array;
+  public function updateAdminUser(): void;
 }

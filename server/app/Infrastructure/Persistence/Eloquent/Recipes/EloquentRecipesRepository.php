@@ -266,4 +266,9 @@ class EloquentRecipesRepository implements RecipesRepository
     $category->isShow = !$category->isShow;
     $category->save();
   }
+  public function updateAdminUser(): void
+  {
+    
+  }
 }
+

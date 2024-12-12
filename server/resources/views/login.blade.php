@@ -17,6 +17,13 @@
             <div class="col-md-4">
                 <div class="card shadow">
                     <div class="card-body">
+                        @if(session('message'))
+                            <div class="alert {{ session('message') === 'Login Failed...' ? 'alert-danger' : 'alert-success' }} alert-dismissible fade show" role="alert">
+                                {{ session('message') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
                         <h3 class="text-center mb-4">Login</h3>
                         <form method="POST" action="{{ route('validate.login') }}">
                             @csrf

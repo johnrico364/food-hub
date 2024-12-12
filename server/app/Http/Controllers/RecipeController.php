@@ -40,8 +40,6 @@ class RecipeController extends Controller
     }
     public function logout()
     {
-        // dd("ok");
-
         Session::flush();
         Auth::logout();
         return redirect('/');
@@ -189,5 +187,19 @@ class RecipeController extends Controller
     {
         $this->registerRecipes->restoreRecipe($id);
         return redirect()->route('archive')->with('success', 'Recipe restored successfully');
+    }
+    public function updateAdmin(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        return redirect()->route('settings')->with('success', 'Profile updated successfully');
     }
 }
