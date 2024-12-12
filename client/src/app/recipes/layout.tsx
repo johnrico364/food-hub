@@ -68,6 +68,17 @@ export default function RecipesLayout({ children }: Props) {
               </span>
               Country
             </div>
+            <ul className={showCountries ? "pl-3 cursor-pointer" : "hidden"}>
+              {countries?.map((c: { country: string }, i) => {
+                return (
+                  <li key={i}>
+                    <Link href={`/recipes/country/${c?.country}`}>
+                      {c?.country}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
 
             <Link
               href={"/recipes/ingredients-search"}
@@ -82,17 +93,6 @@ export default function RecipesLayout({ children }: Props) {
               </span>
               Ingredient Search
             </Link>
-            <ul className={showCountries ? "pl-3 cursor-pointer" : "hidden"}>
-              {countries?.map((c: { country: string }, i) => {
-                return (
-                  <li key={i}>
-                    <Link href={`/recipes/country/${c?.country}`}>
-                      {c?.country}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
           </div>
         </div>
         <div className="content-side overflow-auto">{children}</div>
