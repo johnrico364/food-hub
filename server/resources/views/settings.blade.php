@@ -34,33 +34,40 @@
                 <h4>Admin Details</h4>
 
                 <div class="mb-3 p-4 bg-light rounded shadow-sm" id="adminDetails">
-                    <p class="fs-4 mb-3"><strong>Name:</strong> <span class="text-secondary">Admin</span></p>
-                    <p class="fs-4"><strong>Email:</strong> <span class="text-secondary">admin@gmail.com</span></p>
+                    <p class="fs-4 mb-3"><strong>Name:</strong> <span class="text-secondary">{{Auth::user()->name}}</span></p>
+                    <p class="fs-4"><strong>Email:</strong> <span class="text-secondary">{{Auth::user()->email}}</span></p>
                 </div>
-                <button type="button" class="btn btn-success mb-3" id="showFormBtn">Edit Profile</button>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-success mb-3">Logout</button>
-                </form>
 
-                <form method="POST" action="" class="col-md-6" id="profileForm" style="display: none;">
+                <button type="button" class="btn btn-success mb-3" id="showFormBtn">Edit Profile</button>
+
+                <form method="POST" action="{{ route('update.admin') }}" class="col-md-6" id="profileForm" style="display: none;">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <input type="text" class="form-control" id="name" name="name" value="{{Auth::user()->name}}">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" class="form-control" id="email" name="email" value="{{Auth::user()->email}}">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">New Password</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" name="password">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="bi bi-eye"></i> Show
+                            </button>
+                        </div>
                     </div>
                     <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-success">Update Profile</button>
-                        <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                        <button type="submit" class="mb-3 btn btn-success">Update Profile</button>
+                        <button type="button" class="mb-3 btn btn-secondary" id="cancelBtn">Cancel</button>
                     </div>
+                </form>
+
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-success mb-3">Logout</button>
                 </form>
 
             </div>
@@ -69,27 +76,6 @@
 </body>
 
 <script>
-    // document.getElementById('logout').addEventListener('click', function() {
-    //     fetch('{{ route('logout') }}', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    //             },
-    //             body: JSON.stringify({
-    //                 // Add any data you want to send here
-    //                 key: 'value'
-    //             })
-    //         })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             console.log('Success:', data);
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error:', error);
-    //         });
-    // });
-
     document.getElementById('showFormBtn').addEventListener('click', function() {
         document.getElementById('profileForm').style.display = 'block';
         document.getElementById('adminDetails').style.display = 'none';
@@ -100,6 +86,13 @@
         document.getElementById('profileForm').style.display = 'none';
         document.getElementById('adminDetails').style.display = 'block';
         document.getElementById('showFormBtn').style.display = 'block';
+    });
+
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        const passwordInput = document.getElementById('password');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? 'Show' : 'Hide';
     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -290,7 +290,7 @@ class RecipesSeeder extends Seeder
         'name' => 'Kimchi',
         'description' => 'Kimchi is a traditional Korean side dish made from fermented vegetables, most commonly napa cabbage and radishes, seasoned with chili powder, garlic, ginger, and fish sauce. Known for its tangy and spicy flavor, Kimchi is packed with probiotics and is a staple in Korean cuisine. (1 day for fermentation)',
         'category' => json_encode(['Appetizers']),
-        'ingredients' => json_encode(['napa cabbage', 'salt', 'gochugaru (Korean chili powder)', 'garlic', 'ginger', 'scallions', 'fish sauce']),
+        'ingredients' => json_encode(['napa cabbage', 'salt', 'chili powder', 'garlic', 'ginger', 'scallions', 'fish sauce']),
         'country' => 'South Korea',
         'prep_time' => 10,
         'yt_link' => 'https://www.youtube.com/watch?v=FpYtCQDCcsc',
