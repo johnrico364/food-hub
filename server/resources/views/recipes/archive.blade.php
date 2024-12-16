@@ -72,9 +72,14 @@
                                                     style="max-width: 100px;">
                                             </td>
                                             <td>
-                                                <form action="/recipes/restore/{{ $recipe->id }}" method="POST">
+                                                <form action="/recipes/restore/{{ $recipe->id }}" method="POST" class="mb-2">
                                                     @csrf
                                                     <button type="submit" class="btn btn-sm btn-success">Restore</button>
+                                                </form>
+                                                <form action="/recipes/permanertly/{{ $recipe->id }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                                 </form>
                                             </td>
                                         </tr>

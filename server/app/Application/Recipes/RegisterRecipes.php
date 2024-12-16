@@ -43,6 +43,10 @@ class RegisterRecipes
   {
     return $this->recipesRepository->getAllRecipeCountry();
   }
+  public function ingredientsSearch(array $ingredients)
+  {
+    return $this->recipesRepository->ingredientsSearch($ingredients);
+  }
 
   //blade business logic
   public function findAllRecipes()
@@ -116,6 +120,11 @@ class RegisterRecipes
   {
     $this->recipesRepository->restore($id);
   }
+  public function deleteRecipePermanently(int $id)
+  {
+    $this->recipesRepository->deleteRecipePermanently($id);
+  }
+
   public function findAllCategory()
   {
     return $this->recipesRepository->findAllCategory();
@@ -123,9 +132,5 @@ class RegisterRecipes
   public function updateShowCategory(int $id)
   {
     $this->recipesRepository->updateShowCategory($id);
-  }
-  public function ingredientsSearch(array $ingredients)
-  {
-    return $this->recipesRepository->ingredientsSearch($ingredients);
   }
 }

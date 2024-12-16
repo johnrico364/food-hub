@@ -188,6 +188,11 @@ class RecipeController extends Controller
         $this->registerRecipes->restoreRecipe($id);
         return redirect()->route('archive')->with('success', 'Recipe restored successfully');
     }
+    public function deleteRecipe($id)
+    {
+        $this->registerRecipes->deleteRecipePermanently($id);
+        return redirect()->route('archive')->with('success', 'Recipe deleted successfully');
+    }
     public function updateAdmin(Request $request)
     {
         $user = Auth::user();
