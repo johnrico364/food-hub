@@ -33,7 +33,7 @@ class RecipeCard extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Image.network(
-              'http://127.0.0.1:8000/storage/recipes/${recipe['image']}',
+              'http://127.0.0.1:8000/api/image/${recipe['image']}',
               fit: BoxFit.cover,
             ),
           ),
