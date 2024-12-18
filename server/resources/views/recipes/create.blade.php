@@ -23,7 +23,7 @@
             </div>
             <div class="col-11 content-side">
                 <div class="row mt-5 justify-content-center">
-                    <div class="col-9 border p-4">
+                    <div class="col-9 p-4">
                         <h2 class="mb-4">Create New Recipe</h2>
                         <form action="{{ route('recipes.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf

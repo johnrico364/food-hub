@@ -255,6 +255,12 @@ class EloquentRecipesRepository implements RecipesRepository
     $recipeExist->isDeleted = false;
     $recipeExist->save();
   }
+  public function deleteRecipePermanently(int $id): void
+  {
+    $recipeExist = RecipesModel::find($id);
+    $recipeExist->delete();
+    unlink(public_path('images/' . $recipeExist->image));
+  }
   public function findAllCategory()
   {
     $categories = CategoriesModel::all();

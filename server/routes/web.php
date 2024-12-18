@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/archive', [RecipeController::class, 'archive'])->name('archive');
     Route::post('/recipes/restore/{id}', [RecipeController::class, 'restore'])->name('recipes.restore');
+    Route::delete('/recipes/permanertly/{id}', [RecipeController::class, 'deleteRecipe'])->name('recipes.delete');
 });
 
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:z_mobile/pages/homepage/homepage.dart';
+import 'package:z_mobile/pages/views/homepage.dart';
 import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),

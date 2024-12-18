@@ -19,6 +19,7 @@ interface RecipesRepository
   public function delete(int $id): void;
   public function findDeleted(): array;
   public function restore(int $id): void;
+  public function deleteRecipePermanently(int $id): void;
   public function findAllCategory();
   public function updateShowCategory(int $id): void;
   public function updateAdminUser(): void;
