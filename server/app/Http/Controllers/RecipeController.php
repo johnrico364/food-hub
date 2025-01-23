@@ -7,6 +7,7 @@ use App\Application\Recipes\RegisterRecipes;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use App\Infrastructure\Persistence\Eloquent\Recipes\RecipesModel;
+use App\Infrastructure\Persistence\Eloquent\Categories\CategoriesModel;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -52,7 +53,11 @@ class RecipeController extends Controller
     }
     public function create()
     {
-        return view('recipes.create');
+        $categories = CategoriesModel::all()
+            ->where('isShow', '=', 1)
+            ->where('name', '!=', 'All')
+            ->select('name', 'id');
+        return view('recipes.create', compact('categories'));
     }
     public function store(Request $request)
     {
@@ -60,7 +65,6 @@ class RecipeController extends Controller
         $validate = Validator::make($data, [
             'name' => 'required|string',
             'description' => 'required|string',
-            'category' => 'required|string',
             'ingredients' => 'required|string',
             'country' => 'required|string',
             'prep_time' => 'required|integer',
@@ -70,6 +74,7 @@ class RecipeController extends Controller
         if ($validate->fails()) {
             return redirect()->back()->withErrors($validate)->withInput();
         }
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
 
@@ -81,8 +86,16 @@ class RecipeController extends Controller
             $data['image'] = 'default.jpg';
         }
 
-        $arrayCategory = explode(', ', $request->category);
-        $arrayIngredients = explode(', ', $request->ingredients);
+        // make category from request to array
+        $arrayCategory = [];
+        for ($i = 1; $i <= 11; $i++) {
+            if ($request->has('category-' . $i)) {
+                $arrayCategory[] = $request->input('category-' . $i);
+            }
+        }
+
+        $arrayIngredients = [];
+        $arrayIngredients = explode(', ', $data['ingredients']);
 
         $this->registerRecipes->create(
             $request->name,
@@ -102,15 +115,20 @@ class RecipeController extends Controller
 
     public function update($id)
     {
+        $categories = CategoriesModel::all()
+            ->where('isShow', '=', 1)
+            ->where('name', '!=', 'All')
+            ->select('name', 'id');
+
         $recipe = RecipesModel::find($id);
         if (!$recipe) {
             return redirect()->back()->with('error', 'Recipe not found');
         }
-
-        $recipe['category'] = implode(', ', json_decode($recipe['category'], true));
+        
+        $recipe['category'] =  json_decode($recipe['category'], true);
         $recipe['ingredients'] = implode(', ', json_decode($recipe['ingredients'], true));
 
-        return view('recipes.update', compact('recipe'));
+        return view('recipes.update', compact('recipe', 'categories'));
     }
     public function updateStore(Request $request, $id)
     {
@@ -118,7 +136,6 @@ class RecipeController extends Controller
         $validate = Validator::make($data, [
             'name' => 'required|string',
             'description' => 'required|string',
-            'category' => 'required|string',
             'ingredients' => 'required|string',
             'country' => 'required|string',
             'prep_time' => 'required|integer',
@@ -143,7 +160,14 @@ class RecipeController extends Controller
             $data['image'] = $recipe->image;
         }
 
-        $arrayCategory = explode(', ', $request->category);
+        // make category from request to array
+        $arrayCategory = [];
+        for ($i = 1; $i <= 11; $i++) {
+            if ($request->has('category-' . $i)) {
+                $arrayCategory[] = $request->input('category-' . $i);
+            }
+        }
+
         $arrayIngredients = explode(', ', $request->ingredients);
 
         $this->registerRecipes->update(

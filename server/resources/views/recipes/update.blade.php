@@ -25,7 +25,8 @@
                 <div class="row mt-5 justify-content-center">
                     <div class="col-9 p-4">
                         <h2 class="mb-4">Update Recipe</h2>
-                        <form action="{{ route('recipes.update.store', $recipe['id']) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('recipes.update.store', $recipe['id']) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="name" class="form-label">Recipe Name</label>
@@ -34,24 +35,39 @@
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" name="description" rows="3" required>{{ $recipe['description'] }}</textarea>
+                                <textarea class="form-control" id="description" name="description" rows="3"
+                                    required>{{ $recipe['description'] }}</textarea>
                             </div>
                             <div class="mb-3">
+
                                 <label for="category" class="form-label">Category</label>
-                                <span class="tip-text">
-                                    <b>Tips: Provide space on each category and capitalize each category</b>
-                                    | Ex: Main Course, Breakfast, Soups, Pasta, Desserts, Salad, Baked, Snacks,
-                                    Appetizers, Seafood
-                                </span>
-                                <input type="text" class="form-control" id="category" name="category" required
-                                    value="{{ $recipe['category'] }}">
+                                <div class="row px-3">
+                                    @foreach ($categories as $category)
+                                        <div class="form-check col-2">
+                                            <input 
+                                                class="form-check-input" 
+                                                type="checkbox" value="{{ $category['name'] }}"
+                                                id="flexCheckDefault" 
+                                                name={{ 'category-' . $category['id'] }} 
+                                                @if (is_array($recipe['category']) && in_array($category['name'], $recipe['category'])) 
+                                                    checked 
+                                                @endif
+                                                >
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                {{ $category['name'] }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="ingredients" class="form-label">Ingredients</label>
                                 <span class="tip-text">
                                     <b>Tips: Provide space on each ingredient and capitalize each ingredient</b>
-                                    | Ex: Soy sauce, Pepper, Salt,Onion</span>
-                                <textarea class="form-control" id="ingredients" name="ingredients" rows="4" required>{{ $recipe['ingredients'] }}</textarea>
+                                    | Ex: Soy sauce, Pepper, Salt,Onion
+                                </span>
+                                <textarea class="form-control" id="ingredients" name="ingredients" rows="4"
+                                    required>{{ $recipe['ingredients'] }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="country" class="form-label">Country</label>
@@ -60,16 +76,19 @@
                             </div>
                             <div class="mb-3">
                                 <label for="prep_time" class="form-label">Preparation Time (minutes)</label>
-                                <input type="number" class="form-control" id="prep_time" name="prep_time" required value={{$recipe['prep_time']}}>
+                                <input type="number" class="form-control" id="prep_time" name="prep_time" required
+                                    value={{$recipe['prep_time']}}>
                             </div>
                             <div class="mb-3">
                                 <label for="yt_link" class="form-label">YouTube Link</label>
-                                <input type="text" class="form-control" id="yt_link" name="yt_link" required value={{$recipe['yt_link']}}>
+                                <input type="text" class="form-control" id="yt_link" name="yt_link" required
+                                    value={{$recipe['yt_link']}}>
                             </div>
                             <div class="mb-3">
                                 <label for="image" class="form-label">Recipe Image</label>
                                 <input type="file" class="form-control" id="image" name="image">
-                                <img src="{{ asset('images/' . $recipe['image']) }}" alt="Image" class="mt-2" style="max-width: 200px;">
+                                <img src="{{ asset('images/' . $recipe['image']) }}" alt="Image" class="mt-2"
+                                    style="max-width: 200px;">
                             </div>
                             <button type="submit" class="btn btn-success">Update Recipe</button>
                         </form>
