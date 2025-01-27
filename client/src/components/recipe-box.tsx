@@ -18,7 +18,7 @@ export function RecipeBox(data: Props) {
           <Image
             className="rounded-xl object-contain"
             src={`http://127.0.0.1:8000/api/image/${data?.image}`}
-            alt="Shoes"
+            alt="recipes"
             layout="fill"
             objectFit="cover"
           />
