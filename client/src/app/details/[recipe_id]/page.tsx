@@ -4,6 +4,9 @@ import { useGetRecipes } from "@/hooks/useGetRecipes";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
+
 // Icons
 import { AiOutlineAppstoreAdd } from "react-icons/ai";
 import { BiWorld } from "react-icons/bi";
@@ -19,7 +22,7 @@ type RecipeProps = {
   country: string;
   description: string;
   id: number;
-  image: string;
+  image: string[];
   ingredients: string;
   name: string;
   prep_time: number;
@@ -62,18 +65,26 @@ export default function RecipeDetails({ params }: Props) {
   return (
     <div className="recipe-details-section">
       <div className="wrapper justify-center">
-        <div className="lg:basis-10/12 basis-11/12">
+        <div className="basis-11/12">
           <div className="wrapper">
-            <div className="basis-6/12">
-              <Image
-                className="recipe-pic"
-                src={`http://127.0.0.1:8000/api/image/${recipeDetails?.image}`}
-                alt="recipe"
-                width={1000}
-                height={150}
-              />
+            <div className="basis-5/12">
+              <Splide>
+                {recipeDetails?.image.map((img, i) => {
+                  return (
+                    <SplideSlide key={i}>
+                      <Image
+                        className="recipe-pic"
+                        src={`http://127.0.0.1:8000/api/image/${recipeDetails?.image[i]}`}
+                        alt="recipe"
+                        width={1000}
+                        height={150}
+                      />
+                    </SplideSlide>
+                  );
+                })}
+              </Splide>
             </div>
-            <div className="basis-6/12 px-10">
+            <div className="basis-6/12 pl-[3rem]">
               <div className="recipe-name">{recipeDetails?.name}</div>
 
               <div className="wrapper mt-9">
@@ -173,7 +184,7 @@ export default function RecipeDetails({ params }: Props) {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-4 rounded-lg w-11/12 max-w-4xl">
             <div className="flex justify-end mb-2">
-              <button 
+              <button
                 className="text-gray-500 hover:text-gray-700"
                 onClick={() => set_showModal(false)}
               >
@@ -183,7 +194,7 @@ export default function RecipeDetails({ params }: Props) {
             <div className="relative pt-[56.25%]">
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
-                src={recipeDetails?.yt_link.replace('watch?v=', 'embed/')}
+                src={recipeDetails?.yt_link.replace("watch?v=", "embed/")}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />

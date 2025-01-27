@@ -105,6 +105,7 @@ export default function Recipes() {
   useEffect(() => {
     if (isSearching) set_isSearching(false);
   }, [recipes]);
+
   return (
     <div className="recipes-section">
       <form className="wrapper search-container" onSubmit={handleSearchFn}>
@@ -141,7 +142,7 @@ export default function Recipes() {
                 id={r.id}
                 name={r.name}
                 description={r.description}
-                image={r.image}
+                image={r.image[0]}
               />
             </div>
           );
