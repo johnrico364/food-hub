@@ -28,7 +28,7 @@ class EloquentRecipesRepository implements RecipesRepository
         $recipe->country,
         $recipe->prep_time,
         $recipe->yt_link,
-        $recipe->image,
+        json_decode($recipe->image),
         $recipe->isDeleted,
         $recipe->created_at,
         $recipe->updated_at
@@ -53,7 +53,7 @@ class EloquentRecipesRepository implements RecipesRepository
       $recipe->country,
       $recipe->prep_time,
       $recipe->yt_link,
-      $recipe->image,
+      json_decode($recipe->image),
       $recipe->isDeleted,
       $recipe->created_at,
       $recipe->updated_at
@@ -274,7 +274,7 @@ class EloquentRecipesRepository implements RecipesRepository
   }
   public function updateAdminUser(): void
   {
-    
+
   }
 }
 
