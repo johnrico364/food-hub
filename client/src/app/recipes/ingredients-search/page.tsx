@@ -40,6 +40,7 @@ export default function IngredientsSearchPage() {
             setInputIngredient(e.target.value.toLocaleLowerCase())
           }
           value={inputIngredient}
+          placeholder="Add ingredient here..."
         />
         <button
           className="add-btn"
@@ -55,7 +56,7 @@ export default function IngredientsSearchPage() {
       </div>
 
       <div className="ingredients-list mt-2">
-        <span className="font-semibold">Seacrhing for recipes with: </span>
+        <span className="font-semibold">Searching for recipes with: </span>
         {ingredients.map((ingre, i) => (
           <span
             key={i}
