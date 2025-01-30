@@ -12,7 +12,7 @@ class Recipes
   private ?string $country;
   private ?int $prep_time;
   private ?string $yt_link;
-  private ?array $image;
+  private ?string $image;
   private ?bool $isDeleted;
   private ?string $created_at;
   private ?string $updated_at;
@@ -26,7 +26,7 @@ class Recipes
     ?string $country = null,
     ?int $prep_time = null,
     ?string $yt_link = null,
-    ?array $image = null,
+    ?string $image = null,
     ?bool $isDeleted = false,
     ?string $created_at = null,
     ?string $updated_at = null,

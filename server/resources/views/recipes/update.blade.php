@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Recipe | Create</title>
+    <title>Recipe | Update</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <style>
@@ -86,9 +86,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="image" class="form-label">Recipe Image</label>
-                                <input type="file" class="form-control" id="image" name="image">
-                                <img src="{{ asset('images/' . $recipe['image']) }}" alt="Image" class="mt-2"
-                                    style="max-width: 200px;">
+                                <input type="file" class="form-control" name="image[]" accept="images/*" multiple>
+                                @foreach ($recipe['image'] as $image)
+                                    <img src="{{ asset('images/' . $image) }}" alt="Image" class="mt-2"
+                                        style="max-width: 200px; max-height: 200px;">
+                                @endforeach
                             </div>
                             <button type="submit" class="btn btn-success">Update Recipe</button>
                         </form>

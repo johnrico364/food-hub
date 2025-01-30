@@ -71,7 +71,11 @@
                                             <td>{{ $recipe->country }}</td>
                                             <td>{{ $recipe->yt_link }}</td>
                                             <td class="p-1">
-                                                <img src="{{ asset('images/' . $recipe->image) }}" alt="Recipe" class="img-thumbnail"
+                                                @php
+                                                    $image1 = json_decode($recipe->image);
+                                                @endphp
+
+                                                <img src="{{ asset('images/' . $image1[0]) }}" alt="Recipe" class="img-thumbnail"
                                                     style="max-width: 100px;">
                                             </td>
                                             <td>

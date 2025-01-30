@@ -49,6 +49,7 @@ class RecipeController extends Controller
     public function index()
     {
         $recipes = $this->registerRecipes->findAllRecipes();
+        
         return view('recipes.index', compact('recipes'));
     }
     public function create()
@@ -76,14 +77,18 @@ class RecipeController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
+            $images = $request->file('image');
+            $imageNames = [];
+            
+            foreach($images as $image) {
+                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move('images', $imageName);
+                $imageNames[] = $imageName;
+            }
 
-            $imageName = time() . "." . $image->getClientOriginalExtension();
-            $image->move('images', $imageName);
-
-            $data['image'] = $imageName;
+            $data['image'] = json_encode($imageNames);
         } else {
-            $data['image'] = 'default.jpg';
+            $data['image'] = json_encode(['default.jpg']);
         }
 
         // make category from request to array
@@ -121,6 +126,8 @@ class RecipeController extends Controller
             ->select('name', 'id');
 
         $recipe = RecipesModel::find($id);
+        $recipe['image'] = json_decode($recipe['image'], true);
+
         if (!$recipe) {
             return redirect()->back()->with('error', 'Recipe not found');
         }
@@ -147,15 +154,32 @@ class RecipeController extends Controller
         }
 
         $recipe = RecipesModel::find($id);
+        
         if ($request->hasFile('image')) {
-            if ($recipe->image !== 'default.jpg') {
+            // Get existing images
+            $existingImages = json_decode($recipe->image, true);
+            
+            // Delete all existing images except default
+            if (is_array($existingImages)) {
+                foreach ($existingImages as $existingImage) {
+                    if ($existingImage !== 'default.jpg') {
+                        File::delete('images/' . $existingImage);
+                    }
+                }
+            } else if ($recipe->image !== 'default.jpg') {
                 File::delete('images/' . $recipe->image);
             }
 
+            // Handle new image upload
             $image = $request->file('image');
-            $imageName = time() . "." . $image->getClientOriginalExtension();
-            $image->move('images', $imageName);
-            $data['image'] = $imageName;
+            
+            $imageNames = [];
+            foreach($image as $img) {
+                $imageName = time() . '_' . uniqid() . '.' . $img->getClientOriginalExtension();
+                $img->move('images', $imageName);
+                $imageNames[] = $imageName;
+            }
+            $data['image'] = json_encode($imageNames);
         } else {
             $data['image'] = $recipe->image;
         }

@@ -72,8 +72,8 @@
                                     <input type="text" class="form-control" id="yt_link" name="yt_link" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="image" class="form-label">Recipe Image</label>
-                                    <input type="file" class="form-control" name="image" accept="images/*">
+                                    <label for="image" class="form-label">Recipe Images</label>
+                                    <input type="file" class="form-control" name="image[]" accept="images/*" multiple>
                                 </div>
                                 <button type="submit" class="btn btn-success">Create Recipe</button>
                         </form>
