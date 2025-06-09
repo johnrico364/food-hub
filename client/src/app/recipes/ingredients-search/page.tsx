@@ -76,7 +76,6 @@ export default function IngredientsSearchPage() {
 
       <div className="recipe-container">
         {recipes?.map((recipe, i) => {
-          console.log(recipe);
           return (
             <div key={i}>
               <RecipeBox
