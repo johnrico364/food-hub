@@ -150,14 +150,13 @@ body {
       }
     }
   }
-
   .category-container {
     display: flex;
     @apply mt-6 pb-3 w-full overflow-x-auto;
   }
 
   .recipe-container {
-    @apply grid mt-4 gap-3 overflow-auto;
+    @apply grid mt-4 gap-3 overflow-auto justify-center;
     @apply 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2;
   }
 

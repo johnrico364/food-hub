@@ -61,7 +61,7 @@ export default function RecipesLayout({ children }: Props) {
             <div className="mx-2 flex-1 px-2">Food Hub</div>
           </div>
           {/* Main content */}
-          <div className="p-4">{children}</div>
+          <div className="py-4">{children}</div>
         </div>
         <div className="drawer-side z-40">
           <label

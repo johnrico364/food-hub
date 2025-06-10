@@ -57,8 +57,10 @@
 
 .recipe-box {
   border-radius: 18px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
   &:hover {
-    border: 2px solid var(--green);
+    border-color: var(--green);
   }
   .recipe-details {
     @apply px-3 pt-1;
