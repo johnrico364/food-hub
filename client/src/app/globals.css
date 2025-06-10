@@ -83,9 +83,6 @@ body {
 /* ====== "Navbar" ====== */
 .recipes-layout-section {
   .nav-side {
-    height: 100vh;
-    @apply basis-2/12;
-
     .nav-link {
       @apply w-9/12 h-12 mt-8 cursor-pointer text-center;
       color: var(--black);
