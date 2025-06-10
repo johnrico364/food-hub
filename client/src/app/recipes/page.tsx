@@ -86,6 +86,8 @@ export default function Recipes() {
     set_recipes(response?.data);
     set_pageNumber(0);
     set_categoryType("All");
+
+    console.log(response?.data);
   };
 
   const effectFn = async () => {

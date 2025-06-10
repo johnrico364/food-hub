@@ -76,13 +76,14 @@ export default function IngredientsSearchPage() {
 
       <div className="recipe-container">
         {recipes?.map((recipe, i) => {
+          console.log(recipe.image)
           return (
             <div key={i}>
               <RecipeBox
                 id={recipe.id}
                 name={recipe.name}
                 description={recipe.description}
-                image={recipe.image}
+                image={recipe.image[0]}
               />
             </div>
           );

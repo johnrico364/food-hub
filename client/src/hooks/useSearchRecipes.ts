@@ -1,5 +1,20 @@
 import axios, { AxiosError } from "axios";
 
+type RecipeProps = {
+  id: number;
+  name: string;
+  description: string;
+  country: string;
+  image: string;
+  ingredients: string;
+  prep_time: number;
+  yt_link: string;
+  category: string;
+  isDeleted: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export const useSearchRecipes = () => {
   const searchRecipes = async (searchTerm: string) => {
     try {
@@ -15,6 +30,15 @@ export const useSearchRecipes = () => {
       } else {
         recipesData = match?.data?.related_match;
       }
+
+      recipesData = recipesData.map((recipe: RecipeProps) => {
+        return {
+          id: recipe.id,
+          name: recipe.name,
+          description: recipe.description,
+          image: JSON.parse(recipe.image),
+        }
+      })
 
       return {
         status: match?.status,
@@ -37,7 +61,17 @@ export const useSearchRecipes = () => {
           params: { ingredients },
         }
       );
-      return data?.data?.data;
+
+      const recipesData = data?.data?.data.map((recipe: RecipeProps) => {
+        return {
+          id: recipe.id,
+          name: recipe.name,
+          description: recipe.description,
+          image: JSON.parse(recipe.image),
+        };
+      })
+
+      return recipesData;
     } catch (error) {
       console.log(error);
     }
