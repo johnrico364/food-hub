@@ -131,20 +131,29 @@ body {
 
 /* ====== "/recipes" ====== */
 .recipes-section {
-  @apply lg:mx-[3rem] mx-8 overflow-auto;
+  margin-left: 2rem;
+  margin-right: 2rem;
+
+  @media (min-width: 1024px) {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
 
   .search-container {
-    @apply mt-4 w-5/12 items-center bg-white;
-    border-radius: 0.5rem;
     color: var(--gray);
+    @apply w-full md:w-8/12 lg:w-5/12 mt-4 items-center bg-white rounded-lg;
+    border: 2px solid rgba(128, 128, 128, 0.568);
 
     .icon {
-      @apply mr-2;
+      margin-right: 0.5rem;
       font-size: 1.5rem;
     }
+
     .search-input {
-      @apply h-11 w-10/12;
+      height: 2.75rem;
+      width: 83.333333%;
       font-weight: 600;
+
       &:focus {
         outline: none !important;
       }
