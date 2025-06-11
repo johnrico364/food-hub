@@ -51,7 +51,7 @@ body {
   background-repeat: no-repeat;
 
   .left-side {
-    @apply md:basis-6/12 basis-full ;
+    @apply md:basis-6/12 basis-full;
   }
   .motto-box {
     @apply items-center;
@@ -236,7 +236,7 @@ body {
   }
   .tutorial-btn {
     @apply px-7 h-8 bg-black text-white rounded-2xl font-semibold;
-    @apply max-md:w-full max-md:h-[3rem];
+    @apply max-md:w-full max-md:h-[3rem] max-md:mb-[1rem];
     font-size: 0.8rem;
     box-shadow: 5px 3px 10px gray;
     transition: transform 0.4s ease 0.1s;
@@ -271,7 +271,7 @@ body {
     }
 
     .swipe-btn {
-      @apply h-[2rem] w-[2rem] text-[1.3rem] rounded-[.3rem] ;
+      @apply h-[2rem] w-[2rem] text-[1.3rem] rounded-[.3rem];
       font-weight: 600;
       background-color: var(--green);
       color: var(--white);
@@ -280,7 +280,7 @@ body {
 }
 
 /* ====== "/recipes/country/:country_name */
-.recipe-country-section{
+.recipe-country-section {
   @apply lg:mx-[3rem] mx-8;
 
   .category-container {
