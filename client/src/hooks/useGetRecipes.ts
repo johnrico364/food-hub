@@ -42,12 +42,20 @@ export const useGetRecipes = () => {
       const data = await axios.get(
         `http://127.0.0.1:8000/api/recipes/category/${category}`
       );
-      const recipes = data?.data?.data;
-      const filteredReturn = recipes?.filter((data: RecipeProps) => {
+      const filteredReturn = data?.data?.data?.filter((data: RecipeProps) => {
         return data.country === country.replace("%20", " ");
       });
 
-      return filteredReturn;
+      const recipes = filteredReturn.map((recipe: RecipeProps) => {
+        return {
+          id: recipe.id,
+          name: recipe.name,
+          description: recipe.description,
+          image: JSON.parse(recipe.image),
+        };
+      })
+
+      return recipes;
     } catch (error) {
       console.log(error);
     }

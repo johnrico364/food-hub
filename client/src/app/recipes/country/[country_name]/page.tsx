@@ -80,12 +80,6 @@ export default function Country({ params }: Props) {
     const categoryCount = await getRecipeCountbyCountry(params.country_name);
     set_recipes(recipesData);
     set_categories(categoryCount);
-
-    // let categoryIndex = 0;
-    // for (const key in categoryCount) {
-    //   categories[categoryIndex].items = categoryCount[key];
-    //   categoryIndex++;
-    // }
   };
 
   useEffect(() => {
@@ -118,7 +112,7 @@ export default function Country({ params }: Props) {
                 id={r.id}
                 name={r.name}
                 description={r.description}
-                image={r.image}
+                image={r.image[0]}
               />
             </div>
           );
