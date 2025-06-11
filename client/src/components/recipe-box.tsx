@@ -29,7 +29,7 @@ export function RecipeBox(data: Props) {
           <div className="recipe-desc">{data.description}</div>
           <div className="text-center">
             <button
-              className="recipe-btn w-full"
+              className="recipe-btn w-full hover:scale-105 transition-all duration-300"
               onClick={() => router.push(`/details/${data?.id}`)}
             >
               Show Recipe
