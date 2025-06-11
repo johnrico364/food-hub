@@ -18,8 +18,8 @@ export default function Home() {
           </div>
 
           <div className="wrapper motto-box">
-            <div className="ml-16">
-              <Image className="-mt-24" src={Motto} alt="motto" />
+            <div className="md:ml-[4rem] mx-[1rem]">
+              <Image className="mt-[-6rem]" src={Motto} alt="motto" />
               <button
                 className="cook-now-btn"
                 onClick={() => router.push("/recipes")}
@@ -29,7 +29,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="right-side border"></div>
+        <div className="right-side"></div>
       </div>
     </div>
   );

@@ -51,7 +51,7 @@ body {
   background-repeat: no-repeat;
 
   .left-side {
-    @apply basis-6/12;
+    @apply md:basis-6/12 basis-full ;
   }
   .motto-box {
     @apply items-center;
@@ -70,7 +70,7 @@ body {
   }
 
   .right-side {
-    @apply basis-6/12;
+    @apply md:block hidden basis-6/12;
 
     background-image: url("../images/utils/landing-bg-recipe.png");
     height: 100vh;
