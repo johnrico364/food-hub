@@ -67,7 +67,7 @@ export default function RecipeDetails({ params }: Props) {
       <div className="wrapper justify-center">
         <div className="basis-11/12">
           <div className="wrapper">
-            <div className="basis-5/12">
+            <div className="md:basis-5/12 basis-full">
               <Splide>
                 {recipeDetails?.image.map((img, i) => {
                   return (
@@ -84,7 +84,7 @@ export default function RecipeDetails({ params }: Props) {
                 })}
               </Splide>
             </div>
-            <div className="basis-6/12 pl-[3rem]">
+            <div className="md:basis-6/12 basis-full md:pl-[3rem]">
               <div className="recipe-name">{recipeDetails?.name}</div>
 
               <div className="wrapper mt-9">
@@ -124,7 +124,7 @@ export default function RecipeDetails({ params }: Props) {
           </div>
 
           <div className="wrapper mt-11">
-            <div className="lg:basis-6/12 md:basis-7/12">
+            <div className="md:basis-6/12 basis-full">
               <div className="font-bold">Ingredients</div>
 
               <div className="ingredients-box">
@@ -165,7 +165,7 @@ export default function RecipeDetails({ params }: Props) {
                 </button>
               </div>
             </div>
-            <div className="lg:basis-6/12 md:basis-5/12">
+            <div className="md:basis-6/12 max-md:mt-[1rem] basis-full">
               <div className="wrapper justify-end">
                 <button
                   className="tutorial-btn"

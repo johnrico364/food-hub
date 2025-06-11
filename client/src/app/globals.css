@@ -236,6 +236,7 @@ body {
   }
   .tutorial-btn {
     @apply px-7 h-8 bg-black text-white rounded-2xl font-semibold;
+    @apply max-md:w-full max-md:h-[3rem];
     font-size: 0.8rem;
     box-shadow: 5px 3px 10px gray;
     transition: transform 0.4s ease 0.1s;
